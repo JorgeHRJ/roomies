@@ -1,0 +1,19 @@
+<div class="py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item"><a href="{{ path('home_index') }}"><span class="fas fa-home"></span></a></li>
+            {% for item in items %}
+                {% if item.path is not empty %}
+                    <li class="breadcrumb-item"><a href="{{ item.path }}">{{ item.name }}</a></li>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">{{ item.name }}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h1 class="h4">{{ title }}</h1>
+        </div>
+    </div>
+</div>

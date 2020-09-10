@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "max-len": ["error", {
+      "code": 130
+    }],
+    "no-plusplus": [2, { "allowForLoopAfterthoughts": true }]
+  }
+}

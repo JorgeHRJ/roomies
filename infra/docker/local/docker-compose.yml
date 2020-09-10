@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+    web:
+        build: ./web
+        container_name: roomies-web
+        image: roomies-web
+        ports:
+            - ${APP_PORT}:80
+        volumes:
+            - ${APP_DIR}:/home/app:ro
+        links:
+            - php
+        network_mode: bridge
+
+    php:
+        build: ./php
+        container_name: roomies-php
+        image: roomies-php
+        links:
+            - db
+        volumes:
+            - ${APP_DIR}:/home/app:cached
+        network_mode: bridge
+        working_dir: /home/app
+
+    db:
+        build: ./dbserver
+        container_name: roomies-db
+        image: roomies-db
+        ports:
+            - "${DB_PORT}:3306"
+        volumes:
+            - ${APP_DB}:/var/lib/mysql
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        network_mode: bridge

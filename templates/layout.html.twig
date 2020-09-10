@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('components/navbar-mobile.html.twig') }}
+    <div class="container-fluid bg-soft">
+        <div class="row">
+            <div class="col-12">
+                {{ include('components/sidebar.html.twig') }}
+                <main class="content">
+                    {{ include('components/topbar.twig') }}
+                    {{ get_breadcrumb()|raw }}
+
+                    {% block content %}{% endblock %}
+
+                    {{ include('components/footer.html.twig') }}
+                </main>
+            </div>
+        </div>
+    </div>
+{% endblock %}

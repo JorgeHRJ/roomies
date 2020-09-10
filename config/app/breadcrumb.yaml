@@ -1,0 +1,6 @@
+config:
+  home:
+    index:
+      title: Vista general
+      name: Vista general
+      path: index
