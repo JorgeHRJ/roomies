@@ -1,0 +1,42 @@
+user:
+  email:
+    not_blank: 'Email must not be empty'
+    length: 'Email must not exceed {{ limit }} characters.'
+    unique: 'There is already an user with that email.'
+  role:
+    choices: 'Role {{ value }} is not correct. It must be one of these: {{ choices }}.'
+  name:
+    not_blank: 'Name must not be empty'
+    length: 'Name must not exceed {{ limit }} characters.'
+
+home:
+  name:
+    not_blank: 'Name must not be empty.'
+    length: 'Name must not exceed {{ limit }} characters.'
+
+note:
+  title:
+    not_blank: 'Title must not be empty.'
+    length: 'Title must not exceed {{ limit }} characters.'
+  content:
+    not_blank: 'Content must not be empty.'
+
+task:
+  title:
+    not_blank: 'Title must not be empty.'
+    length: 'Title must not exceed {{ limit }} characters.'
+
+expense:
+  title:
+    not_blank: 'Title must not be empty.'
+    length: 'Title must not exceed {{ limit }} characters.'
+
+expensetag:
+  name:
+    not_blank: 'Name must not be empty.'
+    length: 'Name must not exceed {{ limit }} characters.'
+
+file:
+  name:
+    not_blank: 'Name must not be empty.'
+    length: 'Name must not exceed {{ limit }} characters.'

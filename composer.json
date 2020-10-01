@@ -16,24 +16,21 @@
         "symfony/http-client": "5.1.*",
         "symfony/intl": "5.1.*",
         "symfony/mailer": "5.1.*",
-        "symfony/mime": "5.1.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
         "symfony/process": "5.1.*",
         "symfony/security-bundle": "5.1.*",
-        "symfony/serializer-pack": "*",
-        "symfony/string": "5.1.*",
         "symfony/translation": "5.1.*",
         "symfony/twig-pack": "*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/webpack-encore-bundle": "^1.7",
-        "symfony/yaml": "5.1.*"
+        "symfony/yaml": "5.1.*",
+        "antishov/doctrine-extensions-bundle": "^1.4"
     },
     "require-dev": {
         "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12.17",
-        "phpstan/phpstan-doctrine": "^0.12.10",
         "squizlabs/php_codesniffer": "*",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -83,7 +80,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.1.*"
         }
     }
