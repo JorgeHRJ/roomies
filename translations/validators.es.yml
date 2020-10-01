@@ -1,0 +1,42 @@
+user:
+  email:
+    not_blank: 'El email no debe estar vacío.'
+    length: 'El email no puede superar los {{ limit }} caracteres.'
+    unique: 'Ya existe un usuario con ese email.'
+  role:
+    choices: 'El rol {{ value }} no es correcto. Debe ser uno de los siguientes: {{ choices }}.'
+  name:
+    not_blank: 'El nombre no debe estar vacío.'
+    length: 'El nombre no puede superar los {{ limit }} caracteres.'
+
+home:
+  name:
+    not_blank: 'El nombre no debe estar vacío.'
+    length: 'El nombre no puede superar los {{ limit }} caracteres.'
+
+note:
+  title:
+    not_blank: 'El título no debe estar vacío.'
+    length: 'El título no puede superar los {{ limit }} caracteres.'
+  content:
+    not_blank: 'El contenido no debe estar vacío.'
+
+task:
+  title:
+    not_blank: 'El título no debe estar vacío.'
+    length: 'El título no puede superar los {{ limit }} caracteres.'
+
+expense:
+  title:
+    not_blank: 'El título no debe estar vacío.'
+    length: 'El título no puede superar los {{ limit }} caracteres.'
+
+expensetag:
+  name:
+    not_blank: 'El nombre no debe estar vacío.'
+    length: 'El nombre no puede superar los {{ limit }} caracteres.'
+
+file:
+  name:
+    not_blank: 'El nombre no debe estar vacío.'
+    length: 'El nombre no puede superar los {{ limit }} caracteres.'
