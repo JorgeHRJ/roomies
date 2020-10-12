@@ -62,7 +62,6 @@ function initPopovers() {
 function init() {
   initPreloader();
   initIconNotifications();
-  initBackgroundChecks();
   initTooltips();
   initPopovers();
 }

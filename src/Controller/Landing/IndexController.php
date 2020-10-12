@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Landing;
 
 use App\Library\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/", name="home_")
- */
-class HomeController extends BaseController
+class IndexController extends BaseController
 {
     /**
      * @Route("/", name="index")
@@ -18,6 +15,6 @@ class HomeController extends BaseController
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', []);
+        return $this->render('landing/index/index.html.twig', []);
     }
 }

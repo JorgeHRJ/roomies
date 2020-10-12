@@ -1,6 +1,19 @@
-controllers:
-    resource: ../../src/Controller/
+landing_controllers:
+    resource: ../../src/Controller/Landing
     type: annotation
+    prefix: /
+
+app_controllers:
+    resource: ../../src/Controller/App
+    type: annotation
+    prefix: /app
+    name_prefix: app_
+
+admin_controllers:
+    resource: ../../src/Controller/Admin
+    type: annotation
+    prefix: /admin
+    name_prefix: admin_
 
 kernel:
     resource: ../../src/Kernel.php

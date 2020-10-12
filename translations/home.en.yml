@@ -1,0 +1,5 @@
+home:
+  app_landing:
+    create: 'Create home'
+    join: 'Join home'
+    enter: 'Enter'

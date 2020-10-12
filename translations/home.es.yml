@@ -1,0 +1,5 @@
+home:
+  app_landing:
+    create: 'Crear hogar'
+    join: 'Unirse a hogar'
+    enter: 'Entrar'

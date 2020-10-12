@@ -1,0 +1,36 @@
+security:
+  register:
+    title: 'Register'
+    form:
+      name:
+        label: 'Name'
+        placeholder: 'Your name'
+      email:
+        label: 'Email'
+        placeholder: 'Your email. It will be used for logging in'
+      first_password:
+        label: 'Password'
+        placeholder: 'Password'
+      second_password:
+        label: 'Repeat password'
+        placeholder: 'Confirm the password previously inserted'
+      password_not_matching: 'Passwords must match'
+      password_not_long: 'Password must have more than 8 characters'
+      submit: 'Register'
+    user_disabled: 'The user is currently disabled, so it is not possible to log in'
+    success: 'Registered successfully! You are ready to log in!'
+    error: 'There was an error when trying to register your account. Please, try again'
+  login:
+    title: 'Log in'
+    email:
+      label: 'Email'
+      placeholder: 'Your email'
+    password:
+      label: 'Password'
+      placeholder: 'Password'
+    remember_me_button: 'Remember me'
+    lost_password: 'Lost password?'
+    login_in_submit: 'Log in'
+    not_registered: 'Not registered? Create account!'
+    general_error: 'There was a problem when trying to log in. Email and password are correct?'
+
