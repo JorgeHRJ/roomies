@@ -54,6 +54,10 @@ class LayoutExtension extends AbstractExtension
         $routeParams = $request->attributes->get('_route_params');
 
         $routeParts = explode('_', $route);
+        if ($routeParts[0] === 'app') {
+            unset($routeParts[0]);
+            $routeParts = array_values($routeParts);
+        }
         $base = $routeParts[0];
         $baseConfig = $this->config[$base];
         unset($routeParts[0]);

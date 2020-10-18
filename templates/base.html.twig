@@ -12,7 +12,7 @@
         <link type="text/css" rel="stylesheet" href="{{ preload(asset('build/app.css'), { as: 'style' }) }}"/>
     {% endblock %}
 </head>
-<body class="{% block bodyClass %}{% endblock %}" {% block bodyAttr %}{% endblock %}>
+<body class="{% block bodyClass %}bg-soft{% endblock %}" {% block bodyAttr %}{% endblock %}>
 {% block body %}{% endblock %}
 
 {% for jsFile in encore_entry_js_files('app') %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyClass %}bg-primary{% endblock %}
+
+{% block body %}
+    <div class="pt-5 pb-lg-12">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="display-1 text-white">Roomies</h1>
+                    {{ include('components/flash.html.twig') }}
+                    <div class="row justify-content-md-center">
+                        {% for home in homes %}
+                            {{ include('app/components/_home_landing_item.html.twig', {'home': home}) }}
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex justify-content-center align-items-end flex-wrap mb-6">
+                        <a href="{{ path('app_home_new') }}"
+                           class="btn btn-secondary text-dark mr-4 mb-3 mb-lg-0">
+                            <span class="fas fa-plus mr-2 d-none d-sm-inline"></span>
+                            {{ 'home.app_landing.create'|trans({}, 'home') }}
+                        </a>
+                        <a href="#"
+                           class="btn btn-secondary text-dark mr-4 mb-3 mb-lg-0">
+                            <span class="fas fa-users mr-2 d-none d-sm-inline"></span>
+                            {{ 'home.app_landing.join'|trans({}, 'home') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

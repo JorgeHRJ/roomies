@@ -1,0 +1,35 @@
+security:
+  register:
+    title: 'Registro'
+    form:
+      name:
+        label: 'Nombre'
+        placeholder: 'Tu nombre'
+      email:
+        label: 'Email'
+        placeholder: 'Tu email. Se utilizará para iniciar sesión'
+      first_password:
+        label: 'Contraseña'
+        placeholder: 'Contraseña'
+      second_password:
+        label: 'Repite la contraseña'
+        placeholder: 'Confirma la contraseña insertada'
+      password_not_matching: 'Las contraseñas deben coincidir'
+      password_not_long: 'La contraseña debe ser mayor a 8 caracteres.'
+      submit: 'Registrar'
+    user_disabled: 'El usuario está actualmente deshabilitado por lo que no es posible iniciar sesión con él.'
+    success: '¡Registrado correctamente! ¡Ya puedes entrar con tu nueva cuenta!'
+    error: 'Se produjo un error al realizar el registro. Por favor, intente nuevamente.'
+  login:
+    title: 'Inicia sesión'
+    email:
+      label: 'Email'
+      placeholder: 'Tu email'
+    password:
+      label: 'Contraseña'
+      placeholder: 'Contraseña'
+    remember_me_button: 'Recuérdame'
+    lost_password: '¿Olvidaste tu contraseña?'
+    login_in_submit: 'Entrar'
+    not_registered: '¿No estás registrado? ¡Crea tu cuenta!'
+    general_error: 'Ha habido algún problema al iniciar sesión. ¿El email y la contraseña son correctos?'

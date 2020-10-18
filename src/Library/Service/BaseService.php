@@ -2,6 +2,7 @@
 
 namespace App\Library\Service;
 
+use App\Library\Repository\BaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -20,9 +21,12 @@ abstract class BaseService
         $this->logger = $logger;
     }
 
+    abstract public function getSortFields(): array;
+    abstract public function getRepository(): BaseRepository;
+
     /**
-     * @param mixed $entity
-     * @return mixed
+     * @param object $entity
+     * @return object
      * @throws Exception
      */
     public function create($entity)
@@ -42,11 +46,11 @@ abstract class BaseService
     }
 
     /**
-     * @param mixed $entity
-     * @return mixed
+     * @param object $entity
+     * @return object
      * @throws Exception
      */
-    public function update($entity)
+    public function edit($entity)
     {
         try {
             $this->entityManager->flush();
@@ -62,8 +66,8 @@ abstract class BaseService
     }
 
     /**
-     * @param mixed $entity
-     * @return mixed
+     * @param object $entity
+     * @return object
      * @throws Exception
      */
     public function remove($entity)
@@ -80,5 +84,15 @@ abstract class BaseService
 
             throw $e;
         }
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return object|null
+     */
+    public function get(int $id)
+    {
+        return $this->getRepository()->findOneBy(['id' => $id]);
     }
 }

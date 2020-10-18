@@ -1,0 +1,15 @@
+<div class="col-md-4 mb-4">
+    <div class="card border-light text-center p-0">
+        <div class="profile-cover rounded-top"></div>
+        <div class="card-body pb-5">
+            <img src="#"
+                 class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4"
+                 alt="Home image">
+            <h4 class="h3">{{ home.name }}</h4>
+            <a class="btn btn-sm btn-primary mr-2" href="{{ path('app_home_enter', {'homeSlug': home.slug}) }}">
+                <span class="fas fa-sign-in-alt mr-1"></span>
+                {{ 'home.app_landing.enter'|trans({}, 'home') }}
+            </a>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 
 namespace App\Library\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -52,5 +53,18 @@ class BaseController extends AbstractController
         }
 
         return sprintf($baseList, $elements);
+    }
+
+    /**
+     * @return User|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    protected function getUserInstance()
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $user;
     }
 }
