@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Library\Repository\BaseRepository;
 use App\Library\Service\BaseService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,5 +33,15 @@ class UserService extends BaseService
         $entity->setRole(User::ROLE_USER);
 
         return parent::create($entity);
+    }
+
+    public function getSortFields(): array
+    {
+        return [];
+    }
+
+    public function getRepository(): BaseRepository
+    {
+        return $this->repository;
     }
 }

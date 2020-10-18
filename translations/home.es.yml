@@ -3,3 +3,13 @@ home:
     create: 'Crear hogar'
     join: 'Unirse a hogar'
     enter: 'Entrar'
+  form:
+    new:
+      title: 'Crear hogar'
+    name:
+      label: 'Nombre'
+      placeholder: 'Elige un nombre que identifique a tu hogar'
+    submit:
+      label: 'Crear'
+    success_message: '¡Hogar creado!'
+    error_message: 'Se produjo un error al intentar crear el hogar. Por favor, inténtelo de nuevo.'

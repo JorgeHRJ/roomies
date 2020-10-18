@@ -3,6 +3,7 @@
 namespace App\Controller\App;
 
 use App\Library\Controller\BaseController;
+use App\Service\HomeService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,6 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class IndexController extends BaseController
 {
+    /** @var HomeService */
+    private $homeService;
+
+    public function __construct(HomeService $homeService)
+    {
+        $this->homeService = $homeService;
+    }
+
     /**
      * @Route("/", name="landing")
      *
@@ -18,16 +27,9 @@ class IndexController extends BaseController
      */
     public function landing(): Response
     {
-        return $this->render('app/index/landing.html.twig', []);
-    }
+        $user = $this->getUserInstance();
 
-    /**
-     * @Route("/dashboard", name="dashboard")
-     *
-     * @return Response
-     */
-    public function dashboard(): Response
-    {
-        return $this->render('app/index/dashboard.html.twig', []);
+        $homes = $this->homeService->getByUser($user);
+        return $this->render('app/index/landing.html.twig', ['homes' => $homes]);
     }
 }

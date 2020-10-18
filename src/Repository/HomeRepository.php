@@ -3,48 +3,29 @@
 namespace App\Repository;
 
 use App\Entity\Home;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
+use App\Library\Repository\BaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @method Home|null find($id, $lockMode = null, $lockVersion = null)
- * @method Home|null findOneBy(array $criteria, array $orderBy = null)
- * @method Home[]    findAll()
- * @method Home[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class HomeRepository extends ServiceEntityRepository
+class HomeRepository extends BaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Home::class);
     }
 
-    // /**
-    //  * @return Home[] Returns an array of Home objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByUser(User $user): array
     {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('h');
+        $qb->join('h.users', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->getId());
 
-    /*
-    public function findOneBySomeField($value): ?Home
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery()->getResult();
     }
-    */
+
+    public function getFilterFields(): array
+    {
+        return [];
+    }
 }
