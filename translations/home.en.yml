@@ -13,3 +13,15 @@ home:
       label: 'Create'
     success_message: 'Home created!'
     error_message: 'There was an error when creating the home. Please, try again.'
+  join:
+    title: 'Unirse a un hogar'
+    form:
+      hash:
+        label: 'Passcode'
+        placeholder: 'Insert here the passcode of the home you want to join'
+      submit:
+        label: 'Join'
+    join_message: 'You are about to join this home'
+    join_confirm: 'Confirm'
+    not_found_message: 'Ops, we did not found any home with that passcode.'
+    not_found_try_again_button: 'Try again'

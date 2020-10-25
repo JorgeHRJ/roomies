@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyClass %}bg-primary{% endblock %}
+{% block bodyAttr %}data-controller="home" data-page="join"{% endblock %}
+
+{% block body %}
+    <div class="pt-5 pb-lg-12">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="display-1 text-white">Roomies</h1>
+                    <div class="row justify-content-center">
+                        <div class="col-12 d-flex align-items-center justify-content-center">
+                            <div class="my-3 my-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100">
+                                <div class="text-center text-md-center mb-4 mt-md-0">
+                                    <h1 class="mb-0 h3">{{ 'home.join.title'|trans({}, 'home') }}</h1>
+                                </div>
+                                {% if home is not null %}
+                                    {{ include('app/components/_join_home.html.twig', {'home': home}) }}
+                                {% else %}
+                                    {{ include('app/components/_join_no_home.html.twig') }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

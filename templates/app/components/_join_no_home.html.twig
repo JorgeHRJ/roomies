@@ -1,0 +1,11 @@
+<div class="row">
+    <p>{{ 'home.join.not_found_message'|trans({}, 'home') }}</p>
+</div>
+<hr>
+<div class="row mb-4">
+    <a href="{{ path('app_home_join') }}"
+       class="btn btn-block btn-primary"
+       data-component="button-loader">
+        {{ 'home.join.not_found_try_again_button'|trans({}, 'home') }}
+    </a>
+</div>

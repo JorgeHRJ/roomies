@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -42,21 +43,6 @@ class HomeController extends BaseController
 
     /**
      * @Route({
-     *     "es": "/panel",
-     *     "en": "/dashboard"
-     * }, name="dashboard")
-     *
-     * @return Response
-     */
-    public function dashboard(): Response
-    {
-        $home = $this->contextService->getHome();
-
-        return $this->render('app/home/dashboard.html.twig', ['home' => $home]);
-    }
-
-    /**
-     * @Route({
      *     "es": "/entrar/{homeSlug}",
      *     "en": "/enter/{homeSlug}"
      * }, name="enter")
@@ -67,9 +53,55 @@ class HomeController extends BaseController
     public function enter(string $homeSlug): Response
     {
         $home = $this->homeService->getBySlug($homeSlug);
+        $user = $this->getUserInstance();
+
+        if (!$home->getUsers()->contains($user)) {
+            throw new AccessDeniedException();
+        }
+
         $this->contextService->setHome($home);
 
-        return $this->redirectToRoute('app_home_dashboard');
+        return $this->redirectToRoute('app_index_dashboard');
+    }
+
+    /**
+     * @Route({
+     *     "es": "/unir/{hash}",
+     *     "en": "/join/{hash}"
+     * }, name="join", requirements={"hash"="[0-9a-zA-Z]+"})
+     *
+     * @param string|null $hash
+     * @return Response
+     */
+    public function join(string $hash = null): Response
+    {
+        if ($hash !== null) {
+            return $this->render('app/home/join.html.twig', ['home' => $this->homeService->getByHash($hash)]);
+        }
+
+        return $this->render('app/home/join_no_hash.html.twig');
+    }
+
+    /**
+     * @Route({
+     *     "es": "/unir/{hash}/confirmacion",
+     *     "en": "/join/{hash}/confirm"
+     * }, name="join_confirm", requirements={"hash"="[0-9a-zA-Z]+"})
+     *
+     * @param string $hash
+     * @return Response
+     */
+    public function confirmJoin(string $hash): Response
+    {
+        $home = $this->homeService->getByHash($hash);
+        if (!$home instanceof Home) {
+            throw new NotFoundHttpException();
+        }
+
+        $user = $this->getUserInstance();
+        $this->homeService->addUser($home, $user);
+
+        return $this->redirectToRoute('app_home_enter', ['homeSlug' => $home->getSlug()]);
     }
 
     /**

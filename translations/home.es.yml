@@ -13,3 +13,15 @@ home:
       label: 'Crear'
     success_message: '¡Hogar creado!'
     error_message: 'Se produjo un error al intentar crear el hogar. Por favor, inténtelo de nuevo.'
+  join:
+    title: 'Unirse a un hogar'
+    form:
+      hash:
+        label: 'Código'
+        placeholder: 'Inserta el código del hogar al que quieres acceder'
+      submit:
+        label: 'Unirse'
+    join_message: 'Estás a punto de unirte al siguiente hogar'
+    join_confirm: 'Confirmar'
+    not_found_message: 'Ups, no hemos encontrado ningún hogar con ese código.'
+    not_found_try_again_button: 'Intentar de nuevo'

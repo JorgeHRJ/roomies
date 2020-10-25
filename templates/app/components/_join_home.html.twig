@@ -1,0 +1,12 @@
+<div class="row">
+    <p>{{ 'home.join.join_message'|trans({}, 'home') }}</p>
+    <h4>{{ home.name }}</h4>
+</div>
+<hr>
+<div class="row mb-4">
+    <a href="{{ path('app_home_join_confirm', {'hash': home.hash}) }}"
+       class="btn btn-block btn-primary"
+       data-component="button-loader">
+        {{ 'home.join.join_confirm'|trans({}, 'home') }}
+    </a>
+</div>

@@ -2,6 +2,8 @@
 
 {% block title %}{{ 'security.login.title'|trans({}, 'security') }}{% endblock %}
 
+{% block bodyClass %}bg-primary{% endblock %}
+
 {% block body %}
     <section class="vh-lg-100 d-flex align-items-center">
         <div class="container">
@@ -66,13 +68,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-block btn-primary">
+                                <button type="submit"
+                                        class="btn btn-block btn-primary"
+                                        data-component="button-loader">
                                     {{ 'security.login.login_in_submit'|trans({}, 'security') }}
                                 </button>
                             </form>
                             <div class="d-flex justify-content-center align-items-center mt-4">
                             <span class="font-weight-normal">
-                                <a href="{{ path('security_register') }}" class="font-weight-bold">
+                                <a href="{{ path('security_register') }}"
+                                   class="font-weight-bold">
                                     {{ 'security.login.not_registered'|trans({}, 'security') }}
                                 </a>
                             </span>

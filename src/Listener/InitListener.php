@@ -49,6 +49,6 @@ class InitListener
 
     private function getExcludedRoutes(): array
     {
-        return ['app_home_enter', 'app_index_landing', 'app_home_new', 'app_home_join'];
+        return ['app_home_enter', 'app_index_landing', 'app_home_new', 'app_home_join', 'app_home_join_confirm'];
     }
 }
