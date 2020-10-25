@@ -40,6 +40,9 @@ class UserService extends BaseService
         return [];
     }
 
+    /**
+     * @return UserRepository
+     */
     public function getRepository(): BaseRepository
     {
         return $this->repository;

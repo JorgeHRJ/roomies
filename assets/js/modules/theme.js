@@ -1,4 +1,5 @@
 import { Tooltip, Popover } from 'bootstrap';
+import Pace from 'pace-js';
 
 function initIconNotifications() {
   const iconNotifications = document.querySelector('.icon-notifications');
@@ -59,7 +60,15 @@ function initPopovers() {
   });
 }
 
+function initPace() {
+  const paceOptions = {
+    restartOnRequestAfter: true,
+  };
+  Pace.start(paceOptions);
+}
+
 function init() {
+  initPace();
   initPreloader();
   initIconNotifications();
   initTooltips();

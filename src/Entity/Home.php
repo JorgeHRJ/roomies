@@ -17,6 +17,8 @@ class Home
 {
     use TimestampableTrait;
 
+    const HASH_LENGTH = 64;
+
     /**
      * @var int|null
      *
@@ -43,6 +45,13 @@ class Home
      * @Gedmo\Slug(updatable=true, unique=true, fields={"name"})
      */
     private $slug;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="home_hash", type="string", length=64)
+     */
+    private $hash;
 
     /**
      * @var \DateTimeInterface|null
@@ -130,6 +139,25 @@ class Home
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHash(): ?string
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param string $hash
+     * @return $this
+     */
+    public function setHash(string $hash): self
+    {
+        $this->hash = $hash;
 
         return $this;
     }

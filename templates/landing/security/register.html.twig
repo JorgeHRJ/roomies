@@ -2,6 +2,8 @@
 
 {% block title %}{{ 'security.register.title'|trans({}, 'security') }}{% endblock %}
 
+{% block bodyClass %}bg-primary{% endblock %}
+
 {% block body %}
     <section class="vh-lg-100 d-flex align-items-center">
         <div class="container">
@@ -60,7 +62,9 @@
                             </div>
                             <hr>
                             <div class="form-group mb-4">
-                                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-primary'}}) }}
+                                {{ form_widget(form.submit, {'attr':
+                                    {'class': 'btn btn-block btn-primary', 'data-component': 'button-loader'}
+                                }) }}
                             </div>
                             {{ form_widget(form._token) }}
                             {{ form_end(form, {'render_rest': false}) }}
