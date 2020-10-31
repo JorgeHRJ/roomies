@@ -9,14 +9,14 @@
     <title>Roomies | {% block title %}Inicio{% endblock %}</title>
 
     {% block stylesheets %}
-        <link type="text/css" rel="stylesheet" href="{{ preload(asset('build/app.css'), { as: 'style' }) }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ preload(asset('build/app.css'), {as: 'style'}) }}"/>
     {% endblock %}
 </head>
 <body class="{% block bodyClass %}bg-soft{% endblock %}" {% block bodyAttr %}{% endblock %}>
 {% block body %}{% endblock %}
 
-{% for jsFile in encore_entry_js_files('app') %}
-    <script src="{{ preload(asset(jsFile), { as: 'script' }) }}"></script>
+{% for js_file in encore_entry_js_files('app') %}
+    <script src="{{ preload(asset(js_file), {as: 'script'}) }}"></script>
 {% endfor %}
 
 {% block javascripts %}{% endblock %}

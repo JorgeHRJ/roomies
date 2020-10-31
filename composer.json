@@ -29,6 +29,7 @@
         "antishov/doctrine-extensions-bundle": "^1.4"
     },
     "require-dev": {
+        "friendsoftwig/twigcs": "^4.0",
         "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12.17",
         "squizlabs/php_codesniffer": "*",

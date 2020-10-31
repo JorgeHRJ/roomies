@@ -5,6 +5,7 @@ namespace App\Twig;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -14,6 +15,9 @@ use Twig\TwigFunction;
 
 class LayoutExtension extends AbstractExtension
 {
+    const TRANSLATION_DOMAIN = 'messages';
+    const TRANSLATION_BREADCRUMB_BASE = 'breadcrumb.items';
+
     /** @var RequestStack */
     private $requestStack;
 
@@ -26,15 +30,20 @@ class LayoutExtension extends AbstractExtension
     /** @var array */
     private $config;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     public function __construct(
         string $projectDir,
         RequestStack $requestStack,
         Environment $templating,
-        RouterInterface $router
+        RouterInterface $router,
+        TranslatorInterface $translator
     ) {
         $this->requestStack = $requestStack;
         $this->templating = $templating;
         $this->router = $router;
+        $this->translator = $translator;
 
         $configFile = $projectDir . '/config/app/breadcrumb.yaml';
         $this->config = Yaml::parse(file_get_contents($configFile))['config'];
@@ -69,7 +78,7 @@ class LayoutExtension extends AbstractExtension
             foreach ($routeParts as $part) {
                 $partConfig = $temp['config'][$part];
 
-                $itemName = $partConfig['name'];
+                $itemName = $this->getTranslation($partConfig['name']);
                 $itemPath = null;
 
                 if (isset($partConfig['child'])) {
@@ -79,7 +88,7 @@ class LayoutExtension extends AbstractExtension
                 }
 
                 $items[] = ['name' => $itemName, 'path' => $itemPath];
-                $title = $partConfig['title'];
+                $title = $this->getTranslation($partConfig['title']);
             }
         } catch (\Exception $e) {
             return '';
@@ -97,5 +106,18 @@ class LayoutExtension extends AbstractExtension
         } catch (SyntaxError $e) {
             return '';
         }
+    }
+
+    /**
+     * @param string $item
+     * @return string
+     */
+    private function getTranslation(string $item): string
+    {
+        return $this->translator->trans(
+            sprintf('%s.%s', self::TRANSLATION_BREADCRUMB_BASE, $item),
+            [],
+            self::TRANSLATION_DOMAIN
+        );
     }
 }

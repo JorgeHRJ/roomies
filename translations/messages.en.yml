@@ -1,0 +1,21 @@
+sidebar:
+  greet: 'Hi'
+  logout: 'Logout'
+  items:
+    dashboard: 'Dashboard'
+
+topbar:
+  notifications:
+    title: 'Notifications'
+    see_all: 'See all'
+  profile: 'My profile'
+  logout: 'Logout'
+
+footer:
+  developed_by: 'Developed by'
+
+breadcrumb:
+  items:
+    dashboard:
+      name: 'Dashboard'
+      title: 'Dashboard'

@@ -23,7 +23,7 @@
                                     <strong>{{ error }}</strong>
                                 </div>
                             {% endif %}
-                            {{ form_start(form, {'attr': {'class': 'mt-4'} }) }}
+                            {{ form_start(form, {'attr': {'class': 'mt-4'}}) }}
                             <div class="form-group mb-4">
                                 {{ form_label(form.name) }}
                                 <div class="input-group">
@@ -62,9 +62,9 @@
                             </div>
                             <hr>
                             <div class="form-group mb-4">
-                                {{ form_widget(form.submit, {'attr':
-                                    {'class': 'btn btn-block btn-primary', 'data-component': 'button-loader'}
-                                }) }}
+                                {{ form_widget(form.submit, {'attr': {
+                                    'class': 'btn btn-block btn-primary', 'data-component': 'button-loader'
+                                }}) }}
                             </div>
                             {{ form_widget(form._token) }}
                             {{ form_end(form, {'render_rest': false}) }}
