@@ -2,8 +2,14 @@
 
 namespace App\Twig;
 
+use App\Entity\Home;
+use App\Entity\User;
+use App\Service\ContextService;
+use App\Service\HomeService;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -52,7 +58,7 @@ class LayoutExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-          new TwigFunction('get_breadcrumb', [$this, 'getBreadcrumb']),
+            new TwigFunction('get_breadcrumb', [$this, 'getBreadcrumb']),
         ];
     }
 

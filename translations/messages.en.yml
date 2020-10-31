@@ -1,6 +1,8 @@
 sidebar:
   greet: 'Hi'
   logout: 'Logout'
+  edit_home: 'Edit'
+  change_home: 'Change'
   items:
     dashboard: 'Dashboard'
 
