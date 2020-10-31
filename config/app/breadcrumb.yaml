@@ -1,6 +1,6 @@
 config:
   index:
     dashboard:
-      title: Vista general
-      name: Vista general
+      title: dashboard.title
+      name: dashboard.name
       path: index

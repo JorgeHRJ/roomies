@@ -29,6 +29,7 @@
         "antishov/doctrine-extensions-bundle": "^1.4"
     },
     "require-dev": {
+        "friendsoftwig/twigcs": "^4.0",
         "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12.17",
         "squizlabs/php_codesniffer": "*",
@@ -64,16 +65,6 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
     },
     "conflict": {
         "symfony/symfony": "*"

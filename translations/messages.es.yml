@@ -1,0 +1,21 @@
+sidebar:
+  greet: 'Hola'
+  logout: 'Desconectar'
+  items:
+    dashboard: 'Vista general'
+
+topbar:
+  notifications:
+    title: 'Notificaciones'
+    see_all: 'Ver todas'
+  profile: 'Mi perfil'
+  logout: 'Desconectar'
+
+footer:
+  developed_by: 'Desarrollado por'
+
+breadcrumb:
+  items:
+    dashboard:
+      name: 'Vista general'
+      title: 'Vista general'

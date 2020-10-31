@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block bodyClass %}bg-primary{% endblock %}
+
 {% block body %}
-    <h1>Index</h1>
+    <a href="{{ path('security_login') }}"
+       class="btn btn-secondary text-dark mr-4 mb-3 mb-lg-0">
+        <span class="fas fa-user"></span>
+        Login
+    </a>
 {% endblock %}

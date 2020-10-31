@@ -4,7 +4,7 @@ echo -e "\n\e[104m Qualitify \e[0m\n"
 
 echo -e "\n\e[94m Starting... \e[0m\n"
 
-array=( squizlabs/php_codesniffer phpmd/phpmd phpstan/phpstan symfony/phpunit-bridge )
+array=( squizlabs/php_codesniffer phpmd/phpmd phpstan/phpstan symfony/phpunit-bridge friendsoftwig/twigcs)
 for i in "${array[@]}"
 do
 	composer show | grep "${i}"
@@ -47,6 +47,15 @@ echo -e "-----------------------------------------------------------------------
 
 echo -e "\e[94m PHPUnit \e[0m"
 bin/phpunit
+
+if [[ $? -eq 0 ]]
+then
+  echo -e "\n\e[30;48;5;82m Success! \e[0m\n"
+fi
+echo -e "------------------------------------------------------------------------------------------------------------\n"
+
+echo -e "\e[94m Twig Code Sniffer \e[0m"
+vendor/bin/twigcs templates
 
 if [[ $? -eq 0 ]]
 then
