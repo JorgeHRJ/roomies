@@ -32,8 +32,44 @@
                                 </div>
                             </div>
                             <h3 class="text-center mt-3">ROOMIES</h3>
+                            <hr>
+                            {% set current_home = get_current_home() %}
+                            {% set homes = get_homes() %}
+                            <div class="card border-light text-center p-0">
+                                <div class="card-body pb-2">
+                                    <img src="#" class="user-avatar rounded-circle mx-auto mb-4"
+                                         alt="{{ current_home.name }}">
+                                    <h5 class="text-primary">{{ current_home.name }}</h5>
+                                    <div role="separator" class="dropdown-divider"></div>
+                                    <button class="btn btn-secondary btn-sm mb-1">
+                                        <span class="fas fa-edit mr-2"></span>
+                                        {{ 'sidebar.edit_home'|trans({}, 'messages') }}
+                                    </button>
+                                    <button class="btn btn-secondary btn-sm dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">
+                                        <span class="fas fa-home mr-2"></span>
+                                        {{ 'sidebar.change_home'|trans({}, 'messages') }}
+                                        <span class="icon icon-small ml-1">
+                                            <span class="fas fa-chevron-down"></span>
+                                        </span>
+                                    </button>
+                                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-left mt-2 text-primary">
+                                        {% for home in homes %}
+                                            {% if home.id != current_home.id %}
+                                                <a class="dropdown-item font-weight-bold text-primary"
+                                                   href="{{ path('app_home_enter', {'homeSlug': home.slug}) }}">
+                                                    <span class="fas fa-chevron-right mr-1"></span>
+                                                    {{ home.name }}
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
                             <ul class="nav flex-column">
-                                <li role="separator" class="dropdown-divider mt-2 mb-3 border-black"></li>
                                 <li class="nav-item {{ 'home' in app.request.get('_route') ? 'active' : '' }} ">
                                     <a href="{{ path('app_index_dashboard') }}" class="nav-link">
                                         <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
