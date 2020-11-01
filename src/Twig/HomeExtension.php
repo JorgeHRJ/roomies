@@ -2,9 +2,11 @@
 
 namespace App\Twig;
 
+use App\Entity\File;
 use App\Entity\Home;
 use App\Entity\User;
 use App\Service\ContextService;
+use App\Service\FileService;
 use App\Service\HomeService;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
@@ -22,13 +24,18 @@ class HomeExtension extends AbstractExtension
     /** @var HomeService */
     private $homeService;
 
+    /** @var FileService */
+    private $fileService;
+
     public function __construct(
         ContextService $contextService,
         HomeService $homeService,
+        FileService $fileService,
         Security $security
     ) {
         $this->contextService = $contextService;
         $this->homeService = $homeService;
+        $this->fileService = $fileService;
         $this->security = $security;
     }
 
@@ -36,7 +43,9 @@ class HomeExtension extends AbstractExtension
     {
         return [
             new TwigFunction('get_current_home', [$this, 'getCurrentHome']),
-            new TwigFunction('get_homes', [$this, 'getHomes'])
+            new TwigFunction('get_homes', [$this, 'getHomes']),
+            new TwigFunction('get_avatar', [$this, 'getAvatar']),
+            new TwigFunction('get_home_avatar', [$this, 'getHomeAvatar'])
         ];
     }
 
@@ -59,5 +68,22 @@ class HomeExtension extends AbstractExtension
         }
 
         return $this->homeService->getByUser($user);
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getAvatar(): ?File
+    {
+        return $this->fileService->getAvatarByHome($this->contextService->getHome());
+    }
+
+    /**
+     * @param Home $home
+     * @return File|null
+     */
+    public function getHomeAvatar(Home $home): ?File
+    {
+        return $this->fileService->getAvatarByHome($home);
     }
 }

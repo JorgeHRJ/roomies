@@ -61,6 +61,12 @@ class ContextService
         $this->session->set('home-id', $home->getId());
     }
 
+    public function removeHome(): void
+    {
+        $this->home = null;
+        $this->session->remove('home-id');
+    }
+
     /**
      * @return int
      */

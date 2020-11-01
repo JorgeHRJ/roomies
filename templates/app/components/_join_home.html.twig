@@ -1,5 +1,12 @@
 <div class="row">
     <p>{{ 'home.join.join_message'|trans({}, 'home') }}</p>
+    {% set avatar = get_home_avatar(home) %}
+    {% if avatar is not empty %}
+        <img src="{{ asset(avatar.path) }}" class="user-avatar large-avatar mx-auto mb-1 p-0"
+             alt="{{ home.name }}">
+    {% else %}
+        <span><i class="fas fa-home fa-2x text-primary"></i></span>
+    {% endif %}
     <h4>{{ home.name }}</h4>
 </div>
 <hr>

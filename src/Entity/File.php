@@ -2,28 +2,26 @@
 
 namespace App\Entity;
 
+use App\Library\Entity\BlameableEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FileRepository")
  * @ORM\Table(name="file")
+ * @ORM\EntityListeners({"App\Listener\BlameableEntityListener"})
  */
-class File
+class File implements BlameableEntityInterface
 {
     const IMAGE_TYPE = 'image';
-    const VIDEO_TYPE = 'video';
-    const AUDIO_TYPE = 'audio';
-    const DOC_TYPE = 'doc';
-    const OTHER_TYPE = 'other';
-    const TYPES = [
-        'Imagen' => self::IMAGE_TYPE,
-        'Audio' => self::AUDIO_TYPE,
-        'Video' => self::VIDEO_TYPE,
-        'Doc' => self::DOC_TYPE,
-        'Otros' => self::OTHER_TYPE
-    ];
+    const DOC_TYPE = 'document';
+    const TYPES = [self::IMAGE_TYPE, self::DOC_TYPE];
+
+    const HOME_AVATAR_ORIGIN = 'avatar';
+    const HOME_CLOUD_ORIGIN = 'cloud';
+    const HOME_EXPENSE_ORIGIN = 'expense';
 
     /**
      * @var int|null
@@ -77,6 +75,13 @@ class File
     private $extension;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="file_origin", type="string", length=32, nullable=false)
+     */
+    private $origin;
+
+    /**
      * @var Home|null
      *
      * @ORM\ManyToOne(targetEntity=Home::class, inversedBy="files")
@@ -87,7 +92,7 @@ class File
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="file_uploaded_at", type="datetime", nullable=false)
@@ -197,6 +202,25 @@ class File
     /**
      * @return string|null
      */
+    public function getOrigin(): ?string
+    {
+        return $this->origin;
+    }
+
+    /**
+     * @param string $origin
+     * @return $this
+     */
+    public function setOrigin(string $origin): self
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getExtension(): ?string
     {
         return $this->extension;
@@ -287,5 +311,10 @@ class File
         $this->expense = $expense;
 
         return $this;
+    }
+
+    public function setBlamed(User $user): void
+    {
+        $this->setUploadedBy($user);
     }
 }

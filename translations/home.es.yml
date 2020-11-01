@@ -3,16 +3,26 @@ home:
     create: 'Crear hogar'
     join: 'Unirse a hogar'
     enter: 'Entrar'
+  title:
+    new: 'Crear hogar'
+    edit: 'Editar hogar'
   form:
     new:
       title: 'Crear hogar'
+      success_message: '¡Hogar creado!'
+      error_message: 'Se produjo un error al intentar crear el hogar. Por favor, inténtelo de nuevo.'
+    edit:
+      success_message: '¡Hogar editado!'
+      error_message: 'Se produjo un error al intentar editar el hogar. Por favor, inténtelo de nuevo.'
+    avatar:
+      label: 'Elige un avatar'
+      mime_types_message: 'El formato de imagen no está permitido. Debe ser JPEG o PNG.'
+      max_size_message: 'Tamaño de imagen superado. El máximo tamaño es 5 MB.'
     name:
       label: 'Nombre'
       placeholder: 'Elige un nombre que identifique a tu hogar'
     submit:
-      label: 'Crear'
-    success_message: '¡Hogar creado!'
-    error_message: 'Se produjo un error al intentar crear el hogar. Por favor, inténtelo de nuevo.'
+      label: 'Enviar'
   join:
     title: 'Unirse a un hogar'
     form:

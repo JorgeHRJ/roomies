@@ -6,13 +6,20 @@ home:
   form:
     new:
       title: 'Create home'
+      success_message: 'Home created!'
+      error_message: 'There was an error when creating the home. Please, try again.'
+    edit:
+      success_message: 'Home edit!'
+      error_message: 'There was an error when editing the home. Please, try again.'
+    avatar:
+      label: 'Choose an avatar'
+      mime_types_message: 'Image format is not allowed. It must be JPEG o PNG.'
+      max_size_message: 'Size image overreached. Max size is 5 MB.'
     name:
       label: 'Name'
       placeholder: 'Choose an identificative name for your home'
     submit:
-      label: 'Create'
-    success_message: 'Home created!'
-    error_message: 'There was an error when creating the home. Please, try again.'
+      label: 'Send'
   join:
     title: 'Unirse a un hogar'
     form:

@@ -21,3 +21,7 @@ breadcrumb:
     dashboard:
       name: 'Dashboard'
       title: 'Dashboard'
+    home:
+      edit:
+        name: 'Edit home'
+        title: 'Edit home'

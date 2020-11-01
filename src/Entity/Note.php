@@ -2,17 +2,20 @@
 
 namespace App\Entity;
 
+use App\Library\Entity\BlameableEntityInterface;
 use App\Library\Traits\Entity\BlameableTrait;
 use App\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
  * @ORM\Table(name="note")
+ * @ORM\EntityListeners({"App\Listener\BlameableEntityListener"})
  */
-class Note
+class Note implements BlameableEntityInterface
 {
     use TimestampableTrait;
     use BlameableTrait;
@@ -64,7 +67,7 @@ class Note
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="note_created_at", type="datetime", nullable=false)
@@ -74,7 +77,7 @@ class Note
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="note_modified_at", type="datetime", nullable=true)
@@ -144,5 +147,10 @@ class Note
         $this->home = $home;
 
         return $this;
+    }
+
+    public function setBlamed(User $user): void
+    {
+        $this->setCreatedBy($user);
     }
 }

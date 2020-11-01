@@ -1,6 +1,6 @@
 {% for flash_message in app.session.flashbag.get('app_error') %}
     <div class="alert alert-danger bg-danger text-white border-0" role="alert">
-        <strong>Error - </strong> {{ flash_message|raw }}
+        <strong>Error: </strong> {{ flash_message|raw }}
     </div>
 {% endfor %}
 

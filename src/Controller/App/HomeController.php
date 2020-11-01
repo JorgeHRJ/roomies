@@ -3,10 +3,13 @@
 namespace App\Controller\App;
 
 use App\Entity\Home;
+use App\Entity\File;
 use App\Form\HomeType;
 use App\Library\Controller\BaseController;
 use App\Service\ContextService;
+use App\Service\FileService;
 use App\Service\HomeService;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,16 +31,21 @@ class HomeController extends BaseController
     /** @var ContextService */
     private $contextService;
 
+    /** @var FileService */
+    private $fileService;
+
     /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
         HomeService $homeService,
         ContextService $contextService,
+        FileService $fileService,
         TranslatorInterface $translator
     ) {
         $this->homeService = $homeService;
         $this->contextService = $contextService;
+        $this->fileService = $fileService;
         $this->translator = $translator;
     }
 
@@ -128,22 +136,84 @@ class HomeController extends BaseController
             try {
                 $user = $this->getUserInstance();
 
-                $this->homeService->new($home, $user);
+                $home = $this->homeService->new($home, $user);
+                $this->contextService->setHome($home);
+
+                $avatarFile = $form->get('avatar')->getData();
+                if ($avatarFile instanceof UploadedFile) {
+                    $this->fileService->handleUpload($avatarFile, File::HOME_AVATAR_ORIGIN);
+                }
 
                 $this->addFlash(
                     'app_success',
-                    $this->translator->trans('home.form.success_message', [], 'home')
+                    $this->translator->trans('home.form.new.success_message', [], 'home')
                 );
 
                 return $this->redirectToRoute('app_index_landing');
             } catch (\Exception $e) {
+                $this->contextService->removeHome();
                 $this->addFlash(
                     'app_error',
-                    $this->translator->trans('home.form.error_message', [], 'home')
+                    $this->translator->trans('home.form.new.error_message', [], 'home')
                 );
             }
         }
 
         return $this->render('app/home/new.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route({
+     *     "es": "/editar",
+     *     "en": "/edit"
+     * }, name="edit", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Request $request): Response
+    {
+        $home = $this->contextService->getHome();
+
+        $form = $this->createForm(HomeType::class, $home);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                $this->addFlash('app_error', $this->getFormErrorMessagesList($form, true));
+                return $this->render('app/home/edit.html.twig', ['form' => $form->createView(), 'home' => $home]);
+            }
+
+            try {
+                /** @var Home $home */
+                $home = $form->getData();
+
+                $avatarFile = $form->get('avatar')->getData();
+                if ($avatarFile instanceof UploadedFile) {
+                    $previousAvatar = $this->fileService->getAvatarByHome($home);
+                    if ($previousAvatar instanceof File) {
+                        $home->removeFile($previousAvatar);
+                        $this->fileService->remove($previousAvatar);
+                    }
+
+                    $avatar = $this->fileService->handleUpload($avatarFile, File::HOME_AVATAR_ORIGIN);
+                    $home->addFile($avatar);
+                }
+
+                $this->homeService->edit($home);
+
+                $this->addFlash(
+                    'app_success',
+                    $this->translator->trans('home.form.edit.success_message', [], 'home')
+                );
+            } catch (\Exception $exception) {
+                $this->addFlash(
+                    'app_error',
+                    $this->translator->trans('home.form.edit.error_message', [], 'home')
+                );
+            }
+        }
+
+        return $this->render('app/home/edit.html.twig', ['form' => $form->createView(), 'home' => $home]);
     }
 }

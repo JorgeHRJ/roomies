@@ -2,17 +2,20 @@
 
 namespace App\Entity;
 
+use App\Library\Entity\BlameableEntityInterface;
 use App\Library\Traits\Entity\BlameableTrait;
 use App\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  * @ORM\Table(name="task")
+ * @ORM\EntityListeners({"App\Listener\BlameableEntityListener"})
  */
-class Task
+class Task implements BlameableEntityInterface
 {
     use TimestampableTrait;
     use BlameableTrait;
@@ -216,5 +219,10 @@ class Task
         $this->home = $home;
 
         return $this;
+    }
+
+    public function setBlamed(User $user): void
+    {
+        $this->setCreatedBy($user);
     }
 }

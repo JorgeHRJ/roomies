@@ -56,7 +56,7 @@ class Home
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="home_created_at", type="date", nullable=false)
@@ -66,7 +66,7 @@ class Home
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="home_modified_at", type="datetime", nullable=true)
