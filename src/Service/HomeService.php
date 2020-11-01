@@ -35,7 +35,7 @@ class HomeService extends BaseService
         $home->addUser($user);
         $home->setSlug(Slugify::slugify($home->getName()));
 
-        $hash = substr(sha1(md5($home->getName())), 0, Home::HASH_LENGTH);
+        $hash = substr(sha1(md5($home->getSlug())), 0, Home::HASH_LENGTH);
         $home->setHash($hash);
 
         return parent::create($home);

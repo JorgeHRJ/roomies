@@ -15,7 +15,7 @@ class BaseController extends AbstractController
      * @param bool $showFields
      * @return array
      */
-    public function getFormErrorMessages(FormInterface $form, bool $showFields = false): array
+    public function getFormErrorMessages(FormInterface $form, bool $showFields = true): array
     {
         $errors = [];
         /** @var FormError $error */
@@ -42,7 +42,7 @@ class BaseController extends AbstractController
      * @param bool $showFields
      * @return string
      */
-    public function getFormErrorMessagesList(FormInterface $form, bool $showFields = false): string
+    public function getFormErrorMessagesList(FormInterface $form, bool $showFields = true): string
     {
         $baseList = '<ol class="error-list">%s</ol>';
         $elements = '';

@@ -18,3 +18,10 @@ services:
     App\Listener\InitListener:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority: 512 }
+    App\Listener\BlameableEntityListener:
+        tags:
+            - { name: doctrine.orm.entity_listener }
+    App\Service\StorageService:
+        arguments:
+            $publicFolder: '%kernel.project_dir%/public'
+            $assetsFolder: '%env(ASSETS_FOLDER)%'

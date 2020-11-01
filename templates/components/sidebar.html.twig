@@ -35,16 +35,22 @@
                             <hr>
                             {% set current_home = get_current_home() %}
                             {% set homes = get_homes() %}
+                            {% set avatar = get_avatar() %}
                             <div class="card border-light text-center p-0">
                                 <div class="card-body pb-2">
-                                    <img src="#" class="user-avatar rounded-circle mx-auto mb-4"
-                                         alt="{{ current_home.name }}">
+                                    {% if avatar is not empty %}
+                                        <img src="{{ asset(avatar.path) }}" class="user-avatar large-avatar mx-auto mb-1"
+                                             alt="{{ current_home.name }}">
+                                    {% else %}
+                                        <span><i class="fas fa-home fa-2x text-primary"></i></span>
+                                    {% endif %}
                                     <h5 class="text-primary">{{ current_home.name }}</h5>
                                     <div role="separator" class="dropdown-divider"></div>
-                                    <button class="btn btn-secondary btn-sm mb-1">
+                                    <a class="btn btn-secondary btn-sm mb-1"
+                                       href="{{ path('app_home_edit') }}">
                                         <span class="fas fa-edit mr-2"></span>
                                         {{ 'sidebar.edit_home'|trans({}, 'messages') }}
-                                    </button>
+                                    </a>
                                     <button class="btn btn-secondary btn-sm dropdown-toggle"
                                             data-toggle="dropdown"
                                             aria-haspopup="true"

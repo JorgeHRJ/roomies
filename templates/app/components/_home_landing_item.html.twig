@@ -1,10 +1,13 @@
 <div class="col-md-4 mb-4">
     <div class="card border-light text-center p-0">
-        <div class="profile-cover rounded-top"></div>
         <div class="card-body pb-5">
-            <img src="#"
-                 class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4"
-                 alt="Home image">
+            {% set avatar = get_home_avatar(home) %}
+            {% if avatar is not empty %}
+                <img src="{{ asset(avatar.path) }}" class="user-avatar large-avatar mx-auto mb-1"
+                     alt="{{ home.name }}">
+            {% else %}
+                <span><i class="fas fa-home fa-2x text-primary"></i></span>
+            {% endif %}
             <h4 class="h3">{{ home.name }}</h4>
             <a class="btn btn-sm btn-primary mr-2"
                href="{{ path('app_home_enter', {'homeSlug': home.slug}) }}"

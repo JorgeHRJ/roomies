@@ -4,3 +4,8 @@ config:
       title: dashboard.title
       name: dashboard.name
       path: index
+  home:
+    edit:
+      title: home.edit.title
+      name: home.edit.name
+      path: edit

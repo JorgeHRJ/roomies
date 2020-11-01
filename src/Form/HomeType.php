@@ -4,34 +4,47 @@ namespace App\Form;
 
 use App\Entity\Home;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Constraints\File;
 
 class HomeType extends AbstractType
 {
-    /** @var TranslatorInterface */
-    private $translator;
-
-    public function __construct(TranslatorInterface  $translator)
-    {
-        $this->translator = $translator;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add(
+                'avatar',
+                FileType::class,
+                [
+                    'mapped' => false,
+                    'required' => false,
+                    'label' => 'home.form.avatar.label',
+                    'constraints' => new File(
+                        [
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png'
+                            ],
+                            'mimeTypesMessage' => 'home.form.avatar.mime_types_message',
+                            'maxSize' => '5M',
+                            'maxSizeMessage' => 'home.form.avatar.max_size_message'
+                        ]
+                    )
+                ]
+            )
             ->add('name', TextType::class, [
                 'required' => true,
-                'label' => $this->translator->trans('home.form.name.label', [], 'home'),
+                'label' => 'home.form.name.label',
                 'attr' => [
-                    'placeholder' => $this->translator->trans('home.form.name.placeholder', [], 'home')
+                    'placeholder' => 'home.form.name.placeholder'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('home.form.submit.label', [], 'home')
+                'label' => 'home.form.submit.label'
             ])
         ;
     }
@@ -40,6 +53,7 @@ class HomeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Home::class,
+            'translation_domain' => 'home'
         ]);
     }
 }

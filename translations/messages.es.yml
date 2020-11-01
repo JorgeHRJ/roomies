@@ -21,3 +21,7 @@ breadcrumb:
     dashboard:
       name: 'Vista general'
       title: 'Vista general'
+    home:
+      edit:
+        name: 'Editar hogar'
+        title: 'Editar hogar'

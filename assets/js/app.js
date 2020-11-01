@@ -5,12 +5,14 @@ import themeModule from './modules/theme';
 
 // import components
 import buttonLoaderComponent from './components/button_loader';
+import imagePreviewComponent from './components/image_preview';
 
 // import controllers
 import initHome from './controllers/home_controller';
 
 themeModule();
 buttonLoaderComponent();
+imagePreviewComponent();
 
 if (document.querySelector('[data-controller="home"]')) {
   initHome();

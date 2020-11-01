@@ -2,19 +2,22 @@
 
 namespace App\Entity;
 
+use App\Library\Entity\BlameableEntityInterface;
 use App\Library\Traits\Entity\BlameableTrait;
 use App\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExpenseRepository")
  * @ORM\Table(name="expense")
+ * @ORM\EntityListeners({"App\Listener\BlameableEntityListener"})
  */
-class Expense
+class Expense implements BlameableEntityInterface
 {
     use TimestampableTrait;
     use BlameableTrait;
@@ -314,5 +317,10 @@ class Expense
         }
 
         return $this;
+    }
+
+    public function setBlamed(User $user): void
+    {
+        $this->setCreatedBy($user);
     }
 }

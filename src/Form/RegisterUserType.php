@@ -48,22 +48,18 @@ class RegisterUserType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'attr' => ['placeholder' =>
-                        $this->translator->trans('security.register.form.name.placeholder', [], 'security')
-                    ],
+                    'attr' => ['placeholder' => 'security.register.form.name.placeholder'],
                     'required' => true,
-                    'label' => $this->translator->trans('security.register.form.name.label', [], 'security')
+                    'label' => 'security.register.form.name.label'
                 ]
             )
             ->add(
                 'email',
                 EmailType::class,
                 [
-                    'attr' => ['placeholder' =>
-                        $this->translator->trans('security.register.form.email.placeholder', [], 'security')
-                    ],
+                    'attr' => ['placeholder' => 'security.register.form.email.placeholder'],
                     'required' => true,
-                    'label' => $this->translator->trans('security.register.form.email.label', [], 'security')
+                    'label' => 'security.register.form.email.label'
                 ]
             )
             ->add(
@@ -73,43 +69,19 @@ class RegisterUserType extends AbstractType
                     'mapped' => false,
                     'type' => PasswordType::class,
                     'first_options' => [
-                        'attr' => [
-                            'placeholder' => $this->translator->trans(
-                                'security.register.form.first_password.placeholder',
-                                [],
-                                'security'
-                            )
-                        ],
-                        'label' => $this->translator->trans(
-                            'security.register.form.first_password.label',
-                            [],
-                            'security'
-                        )
+                        'attr' => ['placeholder' => 'security.register.form.first_password.placeholder'],
+                        'label' => 'security.register.form.first_password.label'
                     ],
                     'second_options' => [
-                        'attr' => [
-                            'placeholder' => $this->translator->trans(
-                                'security.register.form.second_password.placeholder',
-                                [],
-                                'security'
-                            )
-                        ],
-                        'label' => $this->translator->trans(
-                            'security.register.form.second_password.label',
-                            [],
-                            'security'
-                        )
+                        'attr' => ['placeholder' => 'security.register.form.second_password.placeholder'],
+                        'label' => 'security.register.form.second_password.label'
                     ],
                     'required' => true,
-                    'invalid_message' => $this->translator->trans(
-                        'security.register.form.password_not_matching',
-                        [],
-                        'security'
-                    )
+                    'invalid_message' => 'security.register.form.password_not_matching',
                 ]
             )
             ->add('submit', SubmitType::class, [
-                'label' => $this->translator->trans('security.register.form.submit', [], 'security')
+                'label' => 'security.register.form.submit'
             ])
         ;
 
@@ -143,6 +115,7 @@ class RegisterUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'translation_domain' => 'security'
         ]);
     }
 }

@@ -108,7 +108,7 @@ class User implements UserInterface
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="user_created_at", type="datetime", nullable=false)
@@ -118,7 +118,7 @@ class User implements UserInterface
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime()
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="user_modified_at", type="datetime", nullable=true)
