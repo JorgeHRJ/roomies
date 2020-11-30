@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -104,26 +103,20 @@ class Expense implements BlameableEntityInterface
     /**
      * @var Collection|null
      *
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="expenses")
-     * @ORM\JoinTable(name="expense_user",
-     *      joinColumns={@ORM\JoinColumn(name="expense_id", referencedColumnName="expense_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="user_id")}
-     * )
-     */
-    private $users;
-
-    /**
-     * @var Collection|null
-     *
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="expense")
      */
     private $files;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ExpenseUser::class, mappedBy="expense")
+     */
+    private $expenseUsers;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->users = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->expenseUsers = new ArrayCollection();
     }
 
     /**
@@ -247,40 +240,6 @@ class Expense implements BlameableEntityInterface
     }
 
     /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    /**
-     * @param User $user
-     * @return $this
-     */
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param User $user
-     * @return $this
-     */
-    public function removeUser(User $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|File[]
      */
     public function getFiles(): Collection
@@ -313,6 +272,45 @@ class Expense implements BlameableEntityInterface
             // set the owning side to null (unless already changed)
             if ($file->getExpense() === $this) {
                 $file->setExpense(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExpenseUser[]
+     */
+    public function getExpenseUsers(): Collection
+    {
+        return $this->expenseUsers;
+    }
+
+    /**
+     * @param ExpenseUser $expenseUser
+     * @return $this
+     */
+    public function addExpenseUser(ExpenseUser $expenseUser): self
+    {
+        if (!$this->expenseUsers->contains($expenseUser)) {
+            $this->expenseUsers[] = $expenseUser;
+            $expenseUser->setExpense($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ExpenseUser $expenseUser
+     * @return $this
+     */
+    public function removeExpenseUser(ExpenseUser $expenseUser): self
+    {
+        if ($this->expenseUsers->contains($expenseUser)) {
+            $this->expenseUsers->removeElement($expenseUser);
+            // set the owning side to null (unless already changed)
+            if ($expenseUser->getExpense() === $this) {
+                $expenseUser->setExpense(null);
             }
         }
 

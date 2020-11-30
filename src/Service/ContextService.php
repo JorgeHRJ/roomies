@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Home;
+use App\Repository\HomeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ContextService
@@ -16,15 +18,15 @@ class ContextService
     /** @var int */
     private $context;
 
-    /** @var HomeService */
-    private $homeService;
+    /** @var HomeRepository */
+    private $homeRepository;
 
     /** @var SessionInterface */
     private $session;
 
-    public function __construct(HomeService $homeService, SessionInterface $session)
+    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
     {
-        $this->homeService = $homeService;
+        $this->homeRepository = $entityManager->getRepository(Home::class);
         $this->session = $session;
     }
 
@@ -42,7 +44,7 @@ class ContextService
             return null;
         }
 
-        $home = $this->homeService->get($homeId);
+        $home = $this->homeRepository->find($homeId);
         if (!$home instanceof Home) {
             return null;
         }

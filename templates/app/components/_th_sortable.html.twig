@@ -1,0 +1,11 @@
+<th class="border-0">
+    {% if sort == field %}
+        <a href="?sort={{ field }}&dir={{ newDir }}{{ filterQuery is defined ? filterQuery : '' }}" class="text-white">
+            {{ label }} <i class="fas fa-sort{{ dirClass }}"></i>
+        </a>
+    {% else %}
+        <a href="?sort={{ field }}&dir=asc{{ filterQuery is defined ? filterQuery : '' }}" class="text-white">
+            {{ label }} <i class="fas fa-sort"></i>
+        </a>
+    {% endif %}
+</th>

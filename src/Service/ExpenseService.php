@@ -2,16 +2,16 @@
 
 namespace App\Service;
 
-use App\Entity\User;
+use App\Entity\Expense;
 use App\Library\Repository\BaseRepository;
 use App\Library\Service\BaseService;
-use App\Repository\UserRepository;
+use App\Repository\ExpenseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
-class UserService extends BaseService
+class ExpenseService extends BaseService
 {
-    /** @var UserRepository */
+    /** @var ExpenseRepository */
     private $repository;
 
     public function __construct(
@@ -20,30 +20,14 @@ class UserService extends BaseService
         ContextService $contextService
     ) {
         parent::__construct($entityManager, $logger, $contextService);
-        $this->repository = $entityManager->getRepository(User::class);
-    }
-
-    /**
-     * @param User $entity
-     * @return User
-     * @throws \Exception
-     */
-    public function create($entity): User
-    {
-        $entity->setStatus(User::ENABLED_STATUS);
-        $entity->setRole(User::ROLE_USER);
-
-        return parent::create($entity);
+        $this->repository = $entityManager->getRepository(Expense::class);
     }
 
     public function getSortFields(): array
     {
-        return [];
+        return ['title', 'amount'];
     }
 
-    /**
-     * @return UserRepository
-     */
     public function getRepository(): BaseRepository
     {
         return $this->repository;

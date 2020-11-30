@@ -7,9 +7,53 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class BaseController extends AbstractController
 {
+    /**
+     * @param Request $request
+     * @param int $listLimit
+     * @return array
+     */
+    protected function handleIndexRequest(Request $request, int $listLimit): array
+    {
+        $page = (int) $request->get('page', 1);
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $limit = (int) $request->get('limit', $listLimit);
+        if (!$limit) {
+            $limit = $listLimit;
+        }
+
+        $sort = (string) $request->get('sort');
+        $dir = (string) $request->get('dir');
+        $filter = (string) $request->get('f');
+
+        return [$page, $limit, $sort, $dir, $filter];
+    }
+
+    /**
+     * @param Request $request
+     * @param int $page
+     * @param array $data
+     * @param int $limit
+     * @return array
+     */
+    protected function getPaginationData(Request $request, array $data, int $page, int $limit): array
+    {
+        return [
+            'currentPage' => $page,
+            'url' => $request->get('_route'),
+            'nbPages' => ceil($data['total']/$limit),
+            'currentCount' => count($data['data']),
+            'totalCount' => $data['total'],
+            'limit' => $limit
+        ];
+    }
+
     /**
      * @param FormInterface $form
      * @param bool $showFields

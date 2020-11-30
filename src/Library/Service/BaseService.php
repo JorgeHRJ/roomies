@@ -3,6 +3,7 @@
 namespace App\Library\Service;
 
 use App\Library\Repository\BaseRepository;
+use App\Service\ContextService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -15,10 +16,17 @@ abstract class BaseService
     /** @var LoggerInterface */
     protected $logger;
 
-    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
-    {
+    /** @var ContextService */
+    protected $contextService;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger,
+        ContextService $contextService
+    ) {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
+        $this->contextService = $contextService;
     }
 
     abstract public function getSortFields(): array;
@@ -94,5 +102,48 @@ abstract class BaseService
     public function get(int $id)
     {
         return $this->getRepository()->findOneBy(['id' => $id]);
+    }
+
+    /**
+     * @param string|null $filter
+     * @param int|null $page
+     * @param int|null $limit
+     * @param string $sort
+     * @param string $dir
+     *
+     * @return array
+     */
+    public function getAll(
+        string $filter = null,
+        int $page = null,
+        int $limit = null,
+        string $sort = '',
+        string $dir = ''
+    ): array {
+        $orderBy = ['id' => 'DESC'];
+        if ($sort && in_array($sort, $this->getSortFields())) {
+            $orderBy = [(string) $sort => $dir ? strtoupper($dir) : 'ASC'];
+        }
+
+        $offset = $page !== null && $limit !== null ? ($page - 1) * $limit : null;
+
+        $entities = $this->getRepository()->getAll(
+            $filter,
+            $orderBy,
+            $limit,
+            $offset,
+            $this->contextService->getHome()
+        );
+        $total = $this->getRepository()->getAllCount($filter, $this->contextService->getHome());
+
+        return ['total' => $total, 'data' => $entities];
+    }
+
+    /**
+     * @return int
+     */
+    public function getAllCount(): int
+    {
+        return $this->getRepository()->getAllCount(null, $this->contextService->getHome());
     }
 }

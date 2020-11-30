@@ -5,6 +5,7 @@ sidebar:
   change_home: 'Change'
   items:
     dashboard: 'Dashboard'
+    expenses: 'Expenses'
 
 topbar:
   notifications:
@@ -25,3 +26,16 @@ breadcrumb:
       edit:
         name: 'Edit home'
         title: 'Edit home'
+    expense:
+      index:
+        name: 'Expenses'
+        title: 'Expenses'
+
+alert:
+  no_results: 'It seems there are no records at the moment.'
+
+pagination:
+  showing: 'Showing'
+  to: 'to'
+  of: 'of'
+  records: 'records'

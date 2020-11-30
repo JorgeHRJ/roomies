@@ -2,7 +2,7 @@
 
 namespace App\Library\Repository;
 
-use App\Entity\User;
+use App\Entity\Home;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -23,7 +23,7 @@ abstract class BaseRepository extends ServiceEntityRepository
      * @param array|null $orderBy
      * @param int|null $limit
      * @param int|null $offset
-     * @param User|null $user
+     * @param Home|null $home
      *
      * @return mixed
      */
@@ -32,14 +32,14 @@ abstract class BaseRepository extends ServiceEntityRepository
         array $orderBy = null,
         int $limit = null,
         int $offset = null,
-        User $user = null
+        Home $home = null
     ) {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias);
 
         $this->setFilter($alias, $qb, $filter);
-        if ($user instanceof User) {
-            $this->setUserRestriction($alias, $qb, $user);
+        if ($home instanceof Home) {
+            $this->setHomeRestriction($alias, $qb, $home);
         }
 
         if ($orderBy && count($orderBy)) {
@@ -58,18 +58,18 @@ abstract class BaseRepository extends ServiceEntityRepository
 
     /**
      * @param string|null $filter
-     * @param User|null $user
+     * @param Home|null $home
      * @return int
      */
-    public function getAllCount(?string $filter, User $user = null)
+    public function getAllCount(?string $filter, Home $home = null)
     {
         $alias = 't';
 
         $qb = $this->createQueryBuilder($alias)->select(sprintf('count(%s.id)', $alias));
 
         $this->setFilter($alias, $qb, $filter);
-        if ($user instanceof User) {
-            $this->setUserRestriction($alias, $qb, $user);
+        if ($home instanceof Home) {
+            $this->setHomeRestriction($alias, $qb, $home);
         }
 
         try {
@@ -102,11 +102,11 @@ abstract class BaseRepository extends ServiceEntityRepository
     /**
      * @param string $alias
      * @param QueryBuilder $qb
-     * @param User $user
+     * @param Home $home
      */
-    protected function setUserRestriction(string $alias, QueryBuilder $qb, User $user): void
+    protected function setHomeRestriction(string $alias, QueryBuilder $qb, Home $home): void
     {
-        $qb->andWhere(sprintf('%s.user = :userId', $alias));
-        $qb->setParameter('userId', $user->getId());
+        $qb->andWhere(sprintf('%s.home = :homeId', $alias));
+        $qb->setParameter('homeId', $home->getId());
     }
 }

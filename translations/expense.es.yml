@@ -1,0 +1,12 @@
+expense:
+  title:
+    index: 'Gastos'
+  table:
+    column:
+      id: 'ID'
+      title: 'Título'
+      description: 'Descripción'
+      amount: 'Cantidad'
+      tags: 'Etiquetas'
+      created_at: 'Añadido en'
+      actions: 'Acciones'

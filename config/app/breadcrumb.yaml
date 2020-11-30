@@ -9,3 +9,8 @@ config:
       title: home.edit.title
       name: home.edit.name
       path: edit
+  expense:
+    index:
+      title: expense.index.title
+      name: expense.index.name
+      path: index

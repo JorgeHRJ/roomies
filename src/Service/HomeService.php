@@ -16,9 +16,12 @@ class HomeService extends BaseService
     /** @var HomeRepository */
     private $repository;
 
-    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
-    {
-        parent::__construct($entityManager, $logger);
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger,
+        ContextService $contextService
+    ) {
+        parent::__construct($entityManager, $logger, $contextService);
         $this->repository = $entityManager->getRepository(Home::class);
     }
 

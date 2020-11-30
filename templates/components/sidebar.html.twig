@@ -82,6 +82,12 @@
                                         <span>{{ 'sidebar.items.dashboard'|trans({}, 'messages') }}</span>
                                     </a>
                                 </li>
+                                <li class="nav-item {{ 'expense' in app.request.get('_route') ? 'active' : '' }} ">
+                                    <a href="{{ path('app_expense_index') }}" class="nav-link">
+                                        <span class="sidebar-icon"><span class="fas fa-file-invoice-dollar"></span></span>
+                                        <span>{{ 'sidebar.items.expenses'|trans({}, 'messages') }}</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

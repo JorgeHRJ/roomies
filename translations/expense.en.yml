@@ -1,0 +1,12 @@
+expense:
+  title:
+    index: 'Expenses'
+  table:
+    column:
+      id: 'ID'
+      title: 'Title'
+      description: 'Description'
+      amount: 'Amount'
+      tags: 'Tags'
+      created_at: 'Added at'
+      actions: 'Actions'

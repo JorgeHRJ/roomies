@@ -95,17 +95,6 @@ class User implements UserInterface
     private $homes;
 
     /**
-     * @var Collection|null
-     *
-     * @ORM\ManyToMany(targetEntity=Expense::class, mappedBy="users")
-     * @ORM\JoinTable(name="expense_user",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="user_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="expense_id", referencedColumnName="expense_id")}
-     * )
-     */
-    private $expenses;
-
-    /**
      * @var \DateTimeInterface|null
      *
      * @Assert\Type("\DateTimeInterface")
@@ -125,10 +114,15 @@ class User implements UserInterface
      */
     private $modifiedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ExpenseUser::class, mappedBy="user")
+     */
+    private $expenseUsers;
+
     public function __construct()
     {
         $this->homes = new ArrayCollection();
-        $this->expenses = new ArrayCollection();
+        $this->expenseUsers = new ArrayCollection();
     }
 
     /**
@@ -278,6 +272,10 @@ class User implements UserInterface
         return $this->homes;
     }
 
+    /**
+     * @param Home $home
+     * @return $this
+     */
     public function addHome(Home $home): self
     {
         if (!$this->homes->contains($home)) {
@@ -288,6 +286,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Home $home
+     * @return $this
+     */
     public function removeHome(Home $home): self
     {
         if ($this->homes->contains($home)) {
@@ -299,28 +301,39 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Expense[]
+     * @return Collection|ExpenseUser[]
      */
-    public function getExpenses(): Collection
+    public function getExpenseUsers(): Collection
     {
-        return $this->expenses;
+        return $this->expenseUsers;
     }
 
-    public function addExpense(Expense $expense): self
+    /**
+     * @param ExpenseUser $expenseUser
+     * @return $this
+     */
+    public function addExpenseUser(ExpenseUser $expenseUser): self
     {
-        if (!$this->expenses->contains($expense)) {
-            $this->expenses[] = $expense;
-            $expense->addUser($this);
+        if (!$this->expenseUsers->contains($expenseUser)) {
+            $this->expenseUsers[] = $expenseUser;
+            $expenseUser->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeExpense(Expense $expense): self
+    /**
+     * @param ExpenseUser $expenseUser
+     * @return $this
+     */
+    public function removeExpenseUser(ExpenseUser $expenseUser): self
     {
-        if ($this->expenses->contains($expense)) {
-            $this->expenses->removeElement($expense);
-            $expense->removeUser($this);
+        if ($this->expenseUsers->contains($expenseUser)) {
+            $this->expenseUsers->removeElement($expenseUser);
+            // set the owning side to null (unless already changed)
+            if ($expenseUser->getUser() === $this) {
+                $expenseUser->setUser(null);
+            }
         }
 
         return $this;

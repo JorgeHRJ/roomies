@@ -5,6 +5,7 @@ sidebar:
   change_home: 'Cambiar'
   items:
     dashboard: 'Vista general'
+    expenses: 'Gastos'
 
 topbar:
   notifications:
@@ -25,3 +26,16 @@ breadcrumb:
       edit:
         name: 'Editar hogar'
         title: 'Editar hogar'
+    expense:
+      index:
+        name: 'Gastos'
+        title: 'Gastos'
+
+alert:
+  no_results: 'Parece que no hay registros de momento.'
+
+pagination:
+  showing: 'Mostrando'
+  to: 'a'
+  of: 'de'
+  records: 'registros'
