@@ -25,9 +25,13 @@ jobs:
         if: ${{ always() }}
         run: vendor/bin/phpmd src/ text codesize,controversial,phpmd.xml
 
-      - name: PHPStan
+      - name: PHP Stan
         if: ${{ always() }}
         run: vendor/bin/phpstan analyse -c phpstan.neon
+
+      - name: Twig Code Sniffer
+        if: ${{ always() }}
+        run: vendor/bin/twigcs templates
 
   php-tests:
     name: PHP Tests
