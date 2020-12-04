@@ -20,7 +20,7 @@ abstract class AbstractMail
      * @param string $to
      * @param array $parameters
      */
-    public function prepare(string $to, array $parameters)
+    public function prepare(string $to, array $parameters): void
     {
         $this->to = $to;
         $this->parameters = $parameters;

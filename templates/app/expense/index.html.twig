@@ -30,13 +30,13 @@
             {% else %}
                 <div class="table-responsive">
                     {% if dir == 'asc' %}
-                        {% set dirClass = '-up' %}
-                        {% set newDir = 'desc' %}
+                        {% set dir_class = '-up' %}
+                        {% set new_dir = 'desc' %}
                     {% elseif dir == 'desc' %}
-                        {% set dirClass = '-down' %}
-                        {% set newDir = 'asc' %}
+                        {% set dir_class = '-down' %}
+                        {% set new_dir = 'asc' %}
                     {% endif %}
-                    {% set filterQuery = get_filter_query(params, ['f']) %}
+                    {% set filter_query = get_filter_query(params, ['f']) %}
                     <table class="table table-centered table-nowrap mb-0 rounded">
                     <thead class="thead-light">
                     <tr>
