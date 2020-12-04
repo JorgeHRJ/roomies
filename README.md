@@ -3,7 +3,7 @@
 App to make easier people's life at home.
 
 Stack:
-- Symfony 5.1
+- Symfony 5.2
 - Docker infra: PHP 7.4 + mariaDB + nginx
 
 ## Requirements
