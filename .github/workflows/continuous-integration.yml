@@ -1,13 +1,18 @@
 name: Continuous Integration
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   php-quality-checks:
     name: PHP Quality Checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
 
       - name: PHP Code Sniffer
         if: ${{ always() }}
@@ -27,21 +32,19 @@ jobs:
           wget https://phpmd.org/static/latest/phpmd.phar -q
           php phpmd.phar src/ text codesize,controversial,phpmd.xml
 
-      - name: PHP Stan
-        uses: php-actions/phpstan@master
+      - name: PHPStan
         if: ${{ always() }}
+        uses: docker://oskarstark/phpstan-ga
         with:
-          configuration: phpstan.neon
-          memory_limit: 256M
+          args: analyse src/
 
 
   php-tests:
     name: PHP Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
-      - uses: php-actions/composer@master
+      - name: Checkout
+        uses: actions/checkout@master
 
       - name: PHP Unit Tests
         uses: php-actions/phpunit@master
