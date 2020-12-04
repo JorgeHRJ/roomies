@@ -1,13 +1,18 @@
 name: Continuous Integration
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
-  quality:
-    name: Quality checks
+  php-quality-checks:
+    name: PHP Quality Checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@master
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
@@ -20,10 +25,20 @@ jobs:
         if: ${{ always() }}
         run: vendor/bin/phpmd src/ text codesize,controversial,phpmd.xml
 
-      - name: PHP Stan
+      - name: PHPStan
         if: ${{ always() }}
         run: vendor/bin/phpstan analyse -c phpstan.neon
 
-      - name: PHP Unit tests
+  php-tests:
+    name: PHP Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: PHP Unit
         if: ${{ always() }}
         run: bin/phpunit
