@@ -3,27 +3,48 @@ name: Continuous Integration
 on: [pull_request]
 
 jobs:
-  quality:
-    name: Quality checks
+  php-quality-checks:
+    name: PHP Quality Checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+      - uses: actions/checkout@master
 
       - name: PHP Code Sniffer
         if: ${{ always() }}
-        run: vendor/bin/phpcs --standard=PSR2 src
+        run: |
+          wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -q
+          php php-cs.phar src/
+
+      - name: PHP CS Fixer
+        if: ${{ always() }}
+        run: |
+          wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.16.1/php-cs-fixer.phar -q
+          php php-cs-fixer.phar fix src --dry-run --diff
 
       - name: PHP Mess Detector
         if: ${{ always() }}
-        run: vendor/bin/phpmd src/ text codesize,controversial,phpmd.xml
+        run: |
+          wget https://phpmd.org/static/latest/phpmd.phar -q
+          php phpmd.phar src/ text codesize,controversial,phpmd.xml
 
       - name: PHP Stan
         if: ${{ always() }}
-        run: vendor/bin/phpstan analyse -c phpstan.neon
+        run: |
+          wget https://github.com/phpstan/phpstan/releases/download/0.12.58/phpstan.phar -q
+          php phpstan.phar analyse -c phpstan.neon
 
-      - name: PHP Unit tests
-        if: ${{ always() }}
-        run: bin/phpunit
+
+  php-tests:
+    name: PHP Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: php-actions/composer@master
+
+      - name: PHP Unit Tests
+        uses: php-actions/phpunit@master
+        with:
+          bootstrap: tests/bootstrap.php
+          configuration: phpunit.xml
+          args: --coverage-text
