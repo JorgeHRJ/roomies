@@ -62,7 +62,10 @@ class SecurityController extends BaseController
     }
 
     /**
-     * @Route("/register", name="security_register", methods={"GET", "POST"})
+     * @Route({
+     *     "es": "/registro",
+     *     "en": "/register"
+     * }, name="security_register", methods={"GET", "POST"})
      *
      * @param Request $request
      *
