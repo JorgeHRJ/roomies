@@ -1,0 +1,6 @@
+confirm_registration:
+  subject: 'Confirm your registration'
+  body:
+    hello: 'Hello'
+    thanks_for_registering: 'Thanks for registering in Roomies! We need you to confirm your registration using the following link:'
+    able_to_use_app: 'After doing it, you will be able to use the application. We hope you enjoy it!'

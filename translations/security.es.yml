@@ -18,7 +18,8 @@ security:
       password_not_long: 'La contraseña debe ser mayor a 8 caracteres.'
       submit: 'Registrar'
     user_disabled: 'El usuario está actualmente deshabilitado por lo que no es posible iniciar sesión con él.'
-    success: '¡Registrado correctamente! ¡Ya puedes entrar con tu nueva cuenta!'
+    success_register: '¡Registrado correctamente! Revisa tu correo electrónico para confirmar tu nueva cuenta.'
+    success_confirm: '¡Cuenta confirmada! Ya puedes utilizar tu cuenta y acceder a la aplicación.'
     error: 'Se produjo un error al realizar el registro. Por favor, intente nuevamente.'
   login:
     title: 'Inicia sesión'

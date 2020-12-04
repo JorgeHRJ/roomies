@@ -19,6 +19,7 @@ services:
         image: roomies-php
         links:
             - db
+            - mailcatcher
         volumes:
             - ${APP_DIR}:/home/app:cached
         network_mode: bridge
@@ -34,4 +35,12 @@ services:
             - ${APP_DB}:/var/lib/mysql
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        network_mode: bridge
+
+    mailcatcher:
+        container_name: roomies-mail
+        image: yappabe/mailcatcher
+        ports:
+            - 1025:1025
+            - 1080:1080
         network_mode: bridge

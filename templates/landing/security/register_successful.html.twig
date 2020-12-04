@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'security.register.title'|trans({}, 'security') }}{% endblock %}
+
+{% block bodyClass %}bg-primary{% endblock %}
+
+{% block body %}
+    <section class="vh-lg-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center form-bg-image">
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <div class="row bg-white shadow-soft border rounded border-light">
+                        <div class="col-sm-6">
+                            <img src="{{ asset('build/images/register.png') }}"
+                                 alt="{{ 'security.register.title'|trans({}, 'security') }}">
+                        </div>
+                        <div class="col-sm-6 my-3 my-lg-0 p-4 p-lg-5 w-100 fmxw-500">
+                            <div class="text-center text-md-center mb-4 mt-md-0">
+                                <h1 class="mb-0 h3">{{ 'security.register.title'|trans({}, 'security') }}</h1>
+                            </div>
+                            {{ include('components/flash.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

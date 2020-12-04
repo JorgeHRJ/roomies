@@ -5,9 +5,12 @@ namespace App\Controller\Landing;
 use App\Entity\User;
 use App\Form\RegisterUserType;
 use App\Library\Controller\BaseController;
+use App\Library\Factory\Mail\RegistrationMail;
+use App\Service\MailerService;
 use App\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -19,6 +22,9 @@ class SecurityController extends BaseController
     /** @var UserService */
     private $userService;
 
+    /** @var MailerService */
+    private $mailerService;
+
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
@@ -27,10 +33,12 @@ class SecurityController extends BaseController
 
     public function __construct(
         UserService $userService,
+        MailerService $mailerService,
         AuthorizationCheckerInterface $authChecker,
         TranslatorInterface $translator
     ) {
         $this->userService = $userService;
+        $this->mailerService = $mailerService;
         $this->authChecker = $authChecker;
         $this->translator = $translator;
     }
@@ -92,12 +100,16 @@ class SecurityController extends BaseController
             try {
                 $this->userService->create($form->getData());
 
+                $mail = new RegistrationMail();
+                $mail->prepare($user->getEmail(), ['name' => $user->getName(), 'uuid' => $user->getUuid()]);
+                $this->mailerService->send($mail);
+
                 $this->addFlash(
                     'app_success',
-                    $this->translator->trans('security.register.success', [], 'security')
+                    $this->translator->trans('security.register.success_register', [], 'security')
                 );
 
-                return $this->redirect($this->generateUrl('security_login'));
+                return $this->redirect($this->generateUrl('security_register_ok'));
             } catch (\Exception $e) {
                 $this->addFlash(
                     'app_error',
@@ -107,5 +119,46 @@ class SecurityController extends BaseController
         }
 
         return $this->render('landing/security/register.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route({
+     *     "es": "/registro/ok",
+     *     "en": "/register/ok"
+     * }, name="security_register_ok")
+     *
+     * @return Response
+     */
+    public function registerOk()
+    {
+        return $this->render('landing/security/register_successful.html.twig');
+    }
+
+    /**
+     * @Route({
+     *     "es": "/registro/confirmacion/{uuid}",
+     *     "en": "/register/confirm/{uuid}"
+     * }, name="security_register_confirm", requirements={"uuid"="[0-9a-zA-Z\-\_]+"})
+     *
+     * @param string $uuid
+     *
+     * @return Response
+     * @throws \Exception
+     */
+    public function confirm(string $uuid)
+    {
+        $user = $this->userService->getByUuid($uuid);
+        if (!$user instanceof User) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->userService->enable($user);
+
+        $this->addFlash(
+            'app_success',
+            $this->translator->trans('security.register.success_confirm', [], 'security')
+        );
+
+        return $this->redirect($this->generateUrl('security_login'));
     }
 }

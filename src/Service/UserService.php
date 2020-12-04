@@ -8,6 +8,7 @@ use App\Library\Service\BaseService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Uid\Uuid;
 
 class UserService extends BaseService
 {
@@ -30,10 +31,30 @@ class UserService extends BaseService
      */
     public function create($entity): User
     {
-        $entity->setStatus(User::ENABLED_STATUS);
+        $entity->setStatus(User::DISABLED_STATUS);
         $entity->setRole(User::ROLE_USER);
+        $entity->setUuid(Uuid::v4());
 
         return parent::create($entity);
+    }
+
+    /**
+     * @param User $user
+     * @throws \Exception
+     */
+    public function enable(User $user): void
+    {
+        $user->setStatus(User::ENABLED_STATUS);
+        $this->edit($user);
+    }
+
+    /**
+     * @param string $uuid
+     * @return User|null
+     */
+    public function getByUuid(string $uuid): ?User
+    {
+        return $this->repository->findOneBy(['uuid' => $uuid, 'status' => User::DISABLED_STATUS]);
     }
 
     public function getSortFields(): array

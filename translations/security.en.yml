@@ -18,7 +18,8 @@ security:
       password_not_long: 'Password must have more than 8 characters'
       submit: 'Register'
     user_disabled: 'The user is currently disabled, so it is not possible to log in'
-    success: 'Registered successfully! You are ready to log in!'
+    success_register: 'Registered successfully! Please check your mail inbox in order to confirm your new user account.'
+    success_confirm: 'Your account is activated! You are able now to use your user account and log into the application.'
     error: 'There was an error when trying to register your account. Please, try again'
   login:
     title: 'Log in'

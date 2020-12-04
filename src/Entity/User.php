@@ -43,6 +43,13 @@ class User implements UserInterface
     /**
      * @var string|null
      *
+     * @ORM\Column(name="user_uuid", type="string", length=256, unique=true)
+     */
+    private $uuid;
+
+    /**
+     * @var string|null
+     *
      * @Assert\NotBlank(message="user.email.not_blank")
      * @Assert\Length(max=256, maxMessage="user.email.length")
      *
@@ -131,6 +138,25 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return $this
+     */
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     /**

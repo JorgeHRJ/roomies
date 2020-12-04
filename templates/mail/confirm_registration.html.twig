@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>APK2 - Nueva solicitud de reserva</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<h2>{{ 'confirm_registration.body.hello'|trans({}, 'mail') }} {{ name }},</h2>
+<p>{{ 'confirm_registration.body.thanks_for_registering'|trans({}, 'mail') }}</p>
+<p>
+    <a href="{{ url('security_register_confirm', {'uuid': uuid}) }}">
+        {{ url('security_register_confirm', {'uuid': uuid}) }}
+    </a>
+</p>
+<p>{{ 'confirm_registration.body.able_to_use_app'|trans({}, 'mail') }}</p>
+</body>
+</html>

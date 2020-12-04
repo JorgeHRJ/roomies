@@ -49,7 +49,7 @@ class Home
     /**
      * @var string|null
      *
-     * @ORM\Column(name="home_hash", type="string", length=64)
+     * @ORM\Column(name="home_hash", type="string", length=255, unique=true)
      */
     private $hash;
 
