@@ -36,6 +36,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
       - name: PHP Unit
         if: ${{ always() }}
         run: bin/phpunit
