@@ -11,6 +11,7 @@ services:
             - ${APP_DIR}:/home/app:ro
         links:
             - php
+            - elk
         network_mode: bridge
 
     php:
@@ -20,6 +21,7 @@ services:
         links:
             - db
             - mailcatcher
+            - elk
         volumes:
             - ${APP_DIR}:/home/app:cached
         network_mode: bridge
@@ -43,4 +45,14 @@ services:
         ports:
             - 1025:1025
             - 1080:1080
+        network_mode: bridge
+
+    elk:
+        container_name: roomies-elk
+        image: willdurand/elk
+        ports:
+            - 81:80
+        volumes:
+            - ${LOGSTASH_DIR}:/etc/logstash
+            - ${LOGSTASH_DIR_PATTERNS}:/opt/logstash/patterns
         network_mode: bridge
