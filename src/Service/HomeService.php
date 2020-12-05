@@ -10,6 +10,7 @@ use App\Library\Utils\Slugify;
 use App\Repository\HomeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Uid\Uuid;
 
 class HomeService extends BaseService
 {
@@ -38,7 +39,7 @@ class HomeService extends BaseService
         $home->addUser($user);
         $home->setSlug(Slugify::slugify($home->getName()));
 
-        $hash = substr(sha1(md5($home->getSlug())), 0, Home::HASH_LENGTH);
+        $hash = Uuid::v4();
         $home->setHash($hash);
 
         return parent::create($home);

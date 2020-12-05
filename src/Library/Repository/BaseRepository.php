@@ -42,7 +42,7 @@ abstract class BaseRepository extends ServiceEntityRepository
             $this->setHomeRestriction($alias, $qb, $home);
         }
 
-        if ($orderBy && count($orderBy)) {
+        if (!empty($orderBy)) {
             foreach ($orderBy as $field => $dir) {
                 $qb->orderBy(sprintf('%s.%s', $alias, $field), $dir);
             }
