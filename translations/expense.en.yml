@@ -1,6 +1,7 @@
 expense:
   title:
     index: 'Expenses'
+    new: 'New expense'
   table:
     column:
       id: 'ID'
@@ -10,3 +11,48 @@ expense:
       tags: 'Tags'
       created_at: 'Added at'
       actions: 'Actions'
+  form:
+    file:
+      label: 'Attached file'
+      mime_types_message: 'File format is not allowed. File types allowed are: JPEG, JPG, PNG o PDF'
+      max_size_message: 'File size overreached. Max file size is 5 MB.'
+    amount:
+      label: 'Total *'
+      placeholder: 'How much was the total expense?'
+    title:
+      label: 'Title *'
+      placeholder: 'Pick a title for the expense'
+    description:
+      label: 'Description *'
+      placeholder: 'Write a description about it if you want'
+    paid_by:
+      label: 'Paid by *'
+      placeholder: 'Pick the person who paid'
+    tags:
+      label: 'Tags'
+      placeholder: 'Choose one or more tags about the expense'
+      help: 'Max 3 tags'
+    submit:
+      label: 'Add'
+    new:
+      success_message: 'Expensed added successfully!'
+      error_message: 'There was some error when trying to add the new expense. Please, try again'
+
+expense_user:
+  title: 'Expenses per person'
+  choose_people_involved: 'Choose who are involved in this expense'
+  people_involved: 'People involved'
+  form:
+    part: 'Corresponding part:'
+    status:
+      label: 'Is it paid?'
+    user:
+      label: 'Person *'
+      placeholder: 'Person involved in the payment'
+
+expense_tag:
+  title: 'Expense tags'
+  form:
+    name:
+      label: 'Name *'
+      placeholder: 'Choose a name for the tag'

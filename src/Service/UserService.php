@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Home;
 use App\Entity\User;
 use App\Library\Repository\BaseRepository;
 use App\Library\Service\BaseService;
@@ -55,6 +56,15 @@ class UserService extends BaseService
     public function getByUuid(string $uuid): ?User
     {
         return $this->repository->findOneBy(['uuid' => $uuid, 'status' => User::DISABLED_STATUS]);
+    }
+
+    /**
+     * @param Home $home
+     * @return User[]|array
+     */
+    public function getByHome(Home $home): array
+    {
+        return $this->repository->getByHome($home);
     }
 
     public function getSortFields(): array

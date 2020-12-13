@@ -15,6 +15,8 @@
 <body class="{% block bodyClass %}bg-soft{% endblock %}" {% block bodyAttr %}{% endblock %}>
 {% block body %}{% endblock %}
 
+{% block translations %}{% endblock %}
+
 {% for js_file in encore_entry_js_files('app') %}
     <script src="{{ preload(asset(js_file), {as: 'script'}) }}"></script>
 {% endfor %}

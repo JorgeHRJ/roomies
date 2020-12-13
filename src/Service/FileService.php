@@ -114,22 +114,57 @@ class FileService
      */
     public function create(string $filename, string $extension, string $origin, ?string $entityName): File
     {
-        $file = new File();
-        $file
-            ->setFilename($filename)
-            ->setExtension($extension)
-            ->setType($this->guessTypeFromExtension($extension))
-            ->setHome($this->contextService->getHome())
-            ->setPath('temp')
-            ->setOrigin($origin);
+        try {
+            $file = new File();
+            $file
+                ->setFilename($filename)
+                ->setExtension($extension)
+                ->setType($this->guessTypeFromExtension($extension))
+                ->setHome($this->contextService->getHome())
+                ->setPath('temp')
+                ->setOrigin($origin);
 
-        $finalEntityName = $entityName !== null ? $entityName : $filename;
-        $file->setName($finalEntityName);
+            $finalEntityName = $entityName !== null ? $entityName : $filename;
+            $file->setName($finalEntityName);
 
-        $this->entityManager->persist($file);
-        $this->entityManager->flush();
+            $this->entityManager->persist($file);
+            $this->entityManager->flush();
 
-        return $file;
+            $this->logger->info(sprintf('Created File ID::%s', $file->getId()));
+
+            return $file;
+        } catch (\Exception $e) {
+            $this->logger->error(sprintf('Error creating File. Error: %s', $e->getMessage()));
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param File $file
+     *
+     * @return File
+     * @throws \Exception
+     */
+    public function update(File $file): File
+    {
+        try {
+            $this->entityManager->flush();
+
+            $this->logger->info(sprintf('Updated File ID::%s', $file->getId()));
+
+            return $file;
+        } catch (\Exception $e) {
+            $this->logger->error(
+                sprintf(
+                    'Error updating File with ID::%s. Error: %s',
+                    $file->getId(),
+                    $e->getMessage()
+                )
+            );
+
+            throw $e;
+        }
     }
 
     /**

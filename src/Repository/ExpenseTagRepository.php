@@ -3,48 +3,18 @@
 namespace App\Repository;
 
 use App\Entity\ExpenseTag;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Library\Repository\BaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @method ExpenseTag|null find($id, $lockMode = null, $lockVersion = null)
- * @method ExpenseTag|null findOneBy(array $criteria, array $orderBy = null)
- * @method ExpenseTag[]    findAll()
- * @method ExpenseTag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class ExpenseTagRepository extends ServiceEntityRepository
+class ExpenseTagRepository extends BaseRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ExpenseTag::class);
     }
 
-    // /**
-    //  * @return ExpenseTag[] Returns an array of ExpenseTag objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getFilterFields(): array
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return ['name'];
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ExpenseTag
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

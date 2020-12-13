@@ -110,8 +110,7 @@ class File implements BlameableEntityInterface
     /**
      * @var Expense|null
      *
-     * @ORM\ManyToOne(targetEntity=Expense::class, inversedBy="files")
-     * @ORM\JoinColumn(name="file_expense", referencedColumnName="expense_id", nullable=true)
+     * @ORM\OneToOne(targetEntity=Expense::class, mappedBy="file", cascade={"persist", "remove"})
      */
     private $expense;
 
@@ -294,6 +293,11 @@ class File implements BlameableEntityInterface
         return $this;
     }
 
+    public function setBlamed(User $user): void
+    {
+        $this->setUploadedBy($user);
+    }
+
     /**
      * @return Expense|null
      */
@@ -310,11 +314,12 @@ class File implements BlameableEntityInterface
     {
         $this->expense = $expense;
 
-        return $this;
-    }
+        // set (or unset) the owning side of the relation if necessary
+        $newFile = null === $expense ? null : $this;
+        if ($expense->getFile() !== $newFile) {
+            $expense->setFile($newFile);
+        }
 
-    public function setBlamed(User $user): void
-    {
-        $this->setUploadedBy($user);
+        return $this;
     }
 }

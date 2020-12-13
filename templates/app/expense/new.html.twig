@@ -1,0 +1,132 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'expense.title.new'|trans({}, 'expense') }}{% endblock %}
+{% block bodyAttr %}data-controller="expense" data-page="new"{% endblock %}
+
+{% block content %}
+    <div class="card border-light shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row mb-4 justify-content-center">
+                <div class="col-md-8">
+                    <div class="mb-4 mt-md-0">
+                        <h1 class="mb-0">{{ 'expense.title.new'|trans({}, 'expense') }}</h1>
+                    </div>
+                    {{ include('components/flash.html.twig') }}
+                    {{ form_start(form, {'attr': {'class': 'mt-4'}}) }}
+                    <div class="form-file text-center mb-2">
+                        {{ form_widget(form.file, {'attr': {
+                            'class': 'form-file-input',
+                            'data-component': 'image-file-input'
+                        }}) }}
+                        <label class="form-file-label"
+                               for="{{ form.file.vars.id }}">
+                            <span class="form-file-text">{{ 'expense.form.file.label'|trans({}, 'expense') }}</span>
+                            <span class="form-file-button"><span class="fas fa-upload"></span></span>
+                        </label>
+                    </div>
+                    <div class="form-group mb-4">
+                        {{ form_label(form.title) }}
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="fas fa-file-signature"></span>
+                            </span>
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        {{ form_label(form.description) }}
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="fas fa-pen"></span>
+                            </span>
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        {{ form_label(form.amount) }}
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="fas fa-money-bill-wave"></span>
+                            </span>
+                            {{ form_widget(
+                                form.amount,
+                                {'attr': {'class': 'form-control', 'data-component': 'total-amount'}}
+                            ) }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        {{ form_label(form.paidBy) }}
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="fas fa-user"></span>
+                            </span>
+                            {{ form_widget(form.paidBy, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        {{ form_label(form.tags) }}
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <span class="fas fa-tags"></span>
+                            </span>
+                            {{ form_widget(
+                                form.tags,
+                                {'attr': {
+                                    'class': 'form-control',
+                                    'data-url': path('app_expensetag_search'),
+                                    'data-component': 'tags-select'
+                                }}
+                            ) }}
+                        </div>
+                        {{ form_help(form.tags) }}
+                    </div>
+                    <hr>
+                    <h3>{{ 'expense_user.title'|trans({}, 'expense') }}</h3>
+                    <div class="row"
+                         data-component="collection-form"
+                         data-prototype="{{ include(
+                             'app/components/expense/_form_expense_user_row.html.twig',
+                             {'expenseUserForm': form.expenseUsers.vars.prototype}
+                         )|e }}">
+                        <div class="col-md-4">
+                            <p>{{ 'expense_user.choose_people_involved'|trans({}, 'expense') }}</p>
+                            {% for user in home_users %}
+                                <button class="btn btn-block btn-outline-secondary"
+                                        type="button"
+                                        data-component="collection-item-selector"
+                                        data-id="{{ user.id }}"
+                                        data-name="{{ user.name }}"
+                                        data-action="add">{{ user.name }}</button>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{ 'expense_user.people_involved'|trans({}, 'expense') }}</p>
+                            <div class="row" data-component="collection-container">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group mb-4">
+                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-primary'}}) }}
+                    </div>
+                    {{ form_widget(form._token) }}
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script type="text/javascript">
+        window.translations = {
+          selector: {
+            placeholder: '{{ 'selector.placeholder'|trans({}, 'messages') }}',
+            loading: '{{ 'selector.loading'|trans({}, 'messages') }}',
+            no_results: '{{ 'selector.no_results'|trans({}, 'messages') }}',
+            no_choices: '{{ 'selector.no_choices'|trans({}, 'messages') }}',
+            item_select: '{{ 'selector.item_select'|trans({}, 'messages') }}',
+          },
+        };
+    </script>
+{% endblock %}

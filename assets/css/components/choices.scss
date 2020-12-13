@@ -1,0 +1,44 @@
+.choices {
+  $self: &;
+
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+
+  &__inner {
+    margin-left: -0.0625rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: #fff;
+  }
+
+  &__list {
+    #{ $self }__item {
+      &--selectable {
+        background-color: #4A5073;
+        border-color: #262B40;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+    }
+
+    #{ $self }__button {
+      border-left-color: #181b28 !important;
+    }
+  }
+
+  &__input {
+    background-color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #66799e;
+  }
+
+  &.is-focused {
+    #{ $self }__inner {
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+  }
+}

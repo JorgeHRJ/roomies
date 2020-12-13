@@ -65,6 +65,14 @@ class Expense implements BlameableEntityInterface
      * @var User|null
      *
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(name="expense_paid_by", referencedColumnName="user_id", nullable=false)
+     */
+    private $paidBy;
+
+    /**
+     * @var User|null
+     *
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(name="expense_created_by", referencedColumnName="user_id", nullable=false)
      */
     private $createdBy;
@@ -101,21 +109,21 @@ class Expense implements BlameableEntityInterface
     private $tags;
 
     /**
-     * @var Collection|null
-     *
-     * @ORM\OneToMany(targetEntity=File::class, mappedBy="expense")
-     */
-    private $files;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ExpenseUser::class, mappedBy="expense")
+     * @ORM\OneToMany(targetEntity=ExpenseUser::class, mappedBy="expense", cascade={"persist", "remove"})
      */
     private $expenseUsers;
+
+    /**
+     * @var File|null
+     *
+     * @ORM\OneToOne(targetEntity=File::class, inversedBy="expense", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="expense_file", referencedColumnName="file_id")
+     */
+    private $file;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->files = new ArrayCollection();
         $this->expenseUsers = new ArrayCollection();
     }
 
@@ -240,45 +248,6 @@ class Expense implements BlameableEntityInterface
     }
 
     /**
-     * @return Collection|File[]
-     */
-    public function getFiles(): Collection
-    {
-        return $this->files;
-    }
-
-    /**
-     * @param File $file
-     * @return $this
-     */
-    public function addFile(File $file): self
-    {
-        if (!$this->files->contains($file)) {
-            $this->files[] = $file;
-            $file->setExpense($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param File $file
-     * @return $this
-     */
-    public function removeFile(File $file): self
-    {
-        if ($this->files->contains($file)) {
-            $this->files->removeElement($file);
-            // set the owning side to null (unless already changed)
-            if ($file->getExpense() === $this) {
-                $file->setExpense(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|ExpenseUser[]
      */
     public function getExpenseUsers(): Collection
@@ -320,5 +289,43 @@ class Expense implements BlameableEntityInterface
     public function setBlamed(User $user): void
     {
         $this->setCreatedBy($user);
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File|null $file
+     * @return $this
+     */
+    public function setFile(?File $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getPaidBy(): ?User
+    {
+        return $this->paidBy;
+    }
+
+    /**
+     * @param User|null $paidBy
+     * @return $this
+     */
+    public function setPaidBy(?User $paidBy): self
+    {
+        $this->paidBy = $paidBy;
+
+        return $this;
     }
 }

@@ -5,7 +5,6 @@ namespace App\Library\Service;
 use App\Library\Repository\BaseRepository;
 use App\Service\ContextService;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Psr\Log\LoggerInterface;
 
 abstract class BaseService
@@ -35,7 +34,7 @@ abstract class BaseService
     /**
      * @param object $entity
      * @return object
-     * @throws Exception
+     * @throws \Exception
      */
     public function create($entity)
     {
@@ -46,7 +45,7 @@ abstract class BaseService
             $this->logger->info(sprintf('Created %s ID::%s', get_class($entity), $entity->getId()));
 
             return $entity;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error(sprintf('Error creating %s. Error: %s', get_class($entity), $e->getMessage()));
 
             throw $e;
@@ -56,7 +55,7 @@ abstract class BaseService
     /**
      * @param object $entity
      * @return object
-     * @throws Exception
+     * @throws \Exception
      */
     public function edit($entity)
     {
@@ -66,7 +65,7 @@ abstract class BaseService
             $this->logger->info(sprintf('Updated %s ID::%s', get_class($entity), $entity->getId()));
 
             return $entity;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error(sprintf('Error updating %s. Error: %s', get_class($entity), $e->getMessage()));
 
             throw $e;
@@ -76,7 +75,7 @@ abstract class BaseService
     /**
      * @param object $entity
      * @return object
-     * @throws Exception
+     * @throws \Exception
      */
     public function remove($entity)
     {
@@ -87,7 +86,7 @@ abstract class BaseService
             $this->logger->info(sprintf('Removed %s ID::%s', get_class($entity), $entity->getId()));
 
             return $entity;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->error(sprintf('Error removing %s. Error: %s', get_class($entity), $e->getMessage()));
 
             throw $e;
