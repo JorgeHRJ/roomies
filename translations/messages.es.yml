@@ -30,7 +30,9 @@ breadcrumb:
       index:
         name: 'Gastos'
         title: 'Gastos'
-
+      new:
+        name: 'Añadir gasto'
+        title: 'Añadir gasto'
 alert:
   no_results: 'Parece que no hay registros de momento.'
 
@@ -39,3 +41,10 @@ pagination:
   to: 'a'
   of: 'de'
   records: 'registros'
+
+selector:
+  placeholder: '¡Escribe aquí!'
+  loading: 'Cargando...'
+  no_results: 'No se han encontrado resultados'
+  no_choices: 'No hay opciones cargadas para seleccionar. Escribe para buscar o para crear una nueva'
+  item_select: 'Selecciona'

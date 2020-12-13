@@ -14,3 +14,7 @@ config:
       title: expense.index.title
       name: expense.index.name
       path: index
+    new:
+      title: expense.new.title
+      name: expense.new.name
+      path: new

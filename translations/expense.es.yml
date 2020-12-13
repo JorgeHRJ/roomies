@@ -1,6 +1,7 @@
 expense:
   title:
     index: 'Gastos'
+    new: 'Nuevo gasto'
   table:
     column:
       id: 'ID'
@@ -10,3 +11,48 @@ expense:
       tags: 'Etiquetas'
       created_at: 'Añadido en'
       actions: 'Acciones'
+  form:
+    file:
+      label: 'Archivo adjunto'
+      mime_types_message: 'El formato de archivo no está permitido. Los archivos permitidos son: JPEG, JPG, PNG o PDF'
+      max_size_message: 'Tamaño de archivo superado. El máximo tamaño es 5 MB.'
+    amount:
+      label: 'Total *'
+      placeholder: '¿Cuál es el total del gasto?'
+    title:
+      label: 'Título *'
+      placeholder: 'Elige un título para el gasto'
+    description:
+      label: 'Descripción *'
+      placeholder: 'Escribe una descripción si lo deseas'
+    paid_by:
+      label: 'Pagado por *'
+      placeholder: 'Elige la persona que ha pagado'
+    tags:
+      label: 'Etiquetas'
+      placeholder: 'Elige una o varias etiquetas sobre el gasto'
+      help: 'Máximo 3 etiquetas'
+    submit:
+      label: 'Añadir'
+    new:
+      success_message: '¡Gasto añadido con éxito!'
+      error_message: 'Hubo algún error a la hora de añadir el gasto. Por favor, prueba de nuevo.'
+
+expense_user:
+  title: 'Gastos por persona'
+  choose_people_involved: 'Elige quiénes están involucrados en este gasto'
+  people_involved: 'Personas involucradas'
+  form:
+    part: 'Parte correspondiente:'
+    status:
+      label: '¿Se ha pagado su parte?'
+    user:
+      label: 'Persona *'
+      placeholder: 'Persona involucrada en el pago'
+
+expense_tag:
+  title: 'Etiquetas de gastos'
+  form:
+    name:
+      label: 'Nombre *'
+      placeholder: 'Elige un nombre para la etiqueta'

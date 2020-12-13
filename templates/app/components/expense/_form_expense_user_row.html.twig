@@ -1,0 +1,24 @@
+<div class="card bg-gray border-light shadow-sm mb-4 text-white"
+     data-component="collection-item"
+     data-number="{{ number is defined ? number : '__name__' }}">
+    <div class="card-header d-flex align-items-center p-3">
+        <h3 class="mb-0" data-component="collection-item-title"></h3>
+        <div class="ml-auto">
+            <button type="button" class="close">
+                <span class="text-secondary" data-component="close-row" data-id="__name__">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-3">
+        <div class="row">
+            {{ form_widget(expenseUserForm.user, {'attr': {'class': 'hidden'}}) }}
+            <div class="col-12 text-secondary mb-2">
+                {{ 'expense_user.form.part'|trans({}, 'expense') }} <span data-component="person-part"> - </span>
+            </div>
+            <div class="col-12 form-check form-switch">
+                {{ form_widget(expenseUserForm.status, {'attr': {'class': 'form-check-input'}}) }}
+                {{ form_label(expenseUserForm.status) }}
+            </div>
+        </div>
+    </div>
+</div>

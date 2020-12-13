@@ -30,6 +30,9 @@ breadcrumb:
       index:
         name: 'Expenses'
         title: 'Expenses'
+      new:
+        name: 'New expense'
+        title: 'New expense'
 
 alert:
   no_results: 'It seems there are no records at the moment.'
@@ -39,3 +42,10 @@ pagination:
   to: 'to'
   of: 'of'
   records: 'records'
+
+selector:
+  placeholder: 'Type here!'
+  loading: 'Loading...'
+  no_results: 'No results found'
+  no_choices: 'There are no choices loaded to select. Write in order to search or to create a new one.'
+  item_select: 'Select'

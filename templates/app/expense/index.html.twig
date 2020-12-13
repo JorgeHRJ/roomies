@@ -2,7 +2,7 @@
 
 {% block title %}{{ 'expense.title.index'|trans({}, 'expense') }}{% endblock %}
 
-{% set table_map = {
+{% set table_map = [
     {column_name: 'expense.table.column.id'|trans({}, 'expense'), field: 'id', sortable: true},
     {column_name: 'expense.table.column.title'|trans({}, 'expense'), field: 'title', sortable: true},
     {column_name: 'expense.table.column.description'|trans({}, 'expense'), field: 'description', sortable: false},
@@ -20,7 +20,8 @@
         custom_template: 'app/components/expense/_actions.html.twig',
         sortable: false
     }
-} %}
+]
+%}
 
 {% block content %}
     <div class="card border-light shadow-sm mb-4">

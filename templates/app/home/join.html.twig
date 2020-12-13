@@ -16,9 +16,9 @@
                                     <h1 class="mb-0 h3">{{ 'home.join.title'|trans({}, 'home') }}</h1>
                                 </div>
                                 {% if home is not null %}
-                                    {{ include('app/components/_join_home.html.twig', {'home': home}) }}
+                                    {{ include('app/components/home/_join_home.html.twig', {'home': home}) }}
                                 {% else %}
-                                    {{ include('app/components/_join_no_home.html.twig') }}
+                                    {{ include('app/components/home/_join_no_home.html.twig') }}
                                 {% endif %}
                             </div>
                         </div>

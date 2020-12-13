@@ -23,6 +23,23 @@ class ExpenseService extends BaseService
         $this->repository = $entityManager->getRepository(Expense::class);
     }
 
+    /**
+     * @param Expense $entity
+     * @return Expense
+     * @throws \Exception
+     */
+    public function create($entity)
+    {
+        $expenseUsers = $entity->getExpenseUsers();
+        $amountPerPerson = round(($entity->getAmount() / $expenseUsers->count()), 2);
+
+        foreach ($expenseUsers as $expenseUser) {
+            $expenseUser->setAmount((string) $amountPerPerson);
+        }
+
+        return parent::create($entity);
+    }
+
     public function getSortFields(): array
     {
         return ['title', 'amount'];

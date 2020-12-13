@@ -76,7 +76,7 @@ class HomeController extends BaseController
      * @Route({
      *     "es": "/unir/{hash}",
      *     "en": "/join/{hash}"
-     * }, name="join", requirements={"hash"="[0-9a-zA-Z]+"})
+     * }, name="join", requirements={"hash"="[0-9a-zA-Z\-\_]+"})
      *
      * @param string|null $hash
      * @return Response
@@ -94,7 +94,7 @@ class HomeController extends BaseController
      * @Route({
      *     "es": "/unir/{hash}/confirmacion",
      *     "en": "/join/{hash}/confirm"
-     * }, name="join_confirm", requirements={"hash"="[0-9a-zA-Z]+"})
+     * }, name="join_confirm", requirements={"hash"="[0-9a-zA-Z\-\_]+"})
      *
      * @param string $hash
      * @return Response
