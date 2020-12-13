@@ -29,7 +29,7 @@ class UserToNumberTransformer implements DataTransformerInterface
             return '';
         }
 
-        return $user->getId();
+        return (string) $user->getId();
     }
 
     /**

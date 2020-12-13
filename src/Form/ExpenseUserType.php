@@ -20,7 +20,7 @@ class ExpenseUserType extends AbstractType
         $this->userTransformer = $userTransformer;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('status', CheckboxType::class, [
@@ -33,7 +33,7 @@ class ExpenseUserType extends AbstractType
         $builder->get('user')->addViewTransformer($this->userTransformer);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ExpenseUser::class,
