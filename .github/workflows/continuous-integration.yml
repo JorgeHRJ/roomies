@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
       - name: PHP Code Sniffer
         if: ${{ always() }}
@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress --no-suggest --ignore-platform-reqs
 
       - name: PHP Unit
         if: ${{ always() }}
