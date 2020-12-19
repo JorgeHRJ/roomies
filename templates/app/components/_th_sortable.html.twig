@@ -1,10 +1,11 @@
+{% set label = key|trans({}, domain) %}
 <th class="border-0">
     {% if sort == field %}
-        <a href="?sort={{ field }}&dir={{ newDir }}{{ filterQuery is defined ? filterQuery : '' }}" class="text-white">
-            {{ label }} <i class="fas fa-sort{{ dirClass }}"></i>
+        <a href="?sort={{ field }}&dir={{ new_dir }}{{ filter_query is defined ? filter_query : '' }}">
+            {{ label }} <i class="fas fa-sort{{ dir_class }}"></i>
         </a>
     {% else %}
-        <a href="?sort={{ field }}&dir=asc{{ filterQuery is defined ? filterQuery : '' }}" class="text-white">
+        <a href="?sort={{ field }}&dir=asc{{ filter_query is defined ? filter_query : '' }}">
             {{ label }} <i class="fas fa-sort"></i>
         </a>
     {% endif %}

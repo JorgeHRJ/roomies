@@ -36,6 +36,9 @@ breadcrumb:
 alert:
   no_results: 'Parece que no hay registros de momento.'
 
+table:
+  actions_column: 'Acciones'
+
 pagination:
   showing: 'Mostrando'
   to: 'a'
@@ -48,3 +51,8 @@ selector:
   no_results: 'No se han encontrado resultados'
   no_choices: 'No hay opciones cargadas para seleccionar. Escribe para buscar o para crear una nueva'
   item_select: 'Selecciona'
+
+button_titles:
+  view_detail: 'Ver detalle'
+  edit: 'Editar'
+  remove: 'Eliminar'

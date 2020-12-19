@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Expense;
+use App\Entity\ExpenseUser;
 use App\Library\Repository\BaseRepository;
 use App\Library\Service\BaseService;
 use App\Repository\ExpenseRepository;
@@ -33,7 +34,11 @@ class ExpenseService extends BaseService
         $expenseUsers = $entity->getExpenseUsers();
         $amountPerPerson = round(($entity->getAmount() / $expenseUsers->count()), 2);
 
+        /** @var ExpenseUser $expenseUser */
         foreach ($expenseUsers as $expenseUser) {
+            if ($expenseUser->getUser()->getId() === $entity->getPaidBy()->getId()) {
+                $expenseUser->setStatus(ExpenseUser::PAID_STATUS);
+            }
             $expenseUser->setAmount((string) $amountPerPerson);
         }
 

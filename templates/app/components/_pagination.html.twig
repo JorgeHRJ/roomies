@@ -1,11 +1,11 @@
 {#
 Parameters:
-  * nbPages (int): number of pages
+  * nb_pages (int): number of pages
   * current_page (int): current pages
   * url (string): route name & query (string): route parameter
     ex: list/page-5?q=myFilter (5 = page and query = myFilter)
 #}
-{% if nbPages > 1 %}
+{% if nb_pages > 1 %}
     {# Number of page around current page+1 #}
     {% set nearby_pages_limit = 4 %}
     <ul class="pagination float-left">
@@ -15,8 +15,8 @@ Parameters:
                 <a href="{{ path(url, params|merge({'page': 1})) }}" class="page-link">Primero</a>
             </li>
         {% endif %}
-        {# twigcs use-var i #}
-        {% for i in 1..nbPages %}
+        {% for i in 1..nb_pages %}
+            {# twigcs use-var i #}
             {% if 0 == (current_page - nearby_pages_limit) - loop.index %} {# dot before #}
                 <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
             {% elseif 0 == (current_page + nearby_pages_limit) - loop.index %} {# dot after #}
@@ -32,18 +32,18 @@ Parameters:
             {% endif %}
         {% endfor %}
 
-        {% if current_page != nbPages %}
+        {% if current_page != nb_pages %}
             <li class="page-item">
-                <a href="{{ path(url, params|merge({'page': nbPages})) }}" class="page-link">Último</a>
+                <a href="{{ path(url, params|merge({'page': nb_pages})) }}" class="page-link">Último</a>
             </li>
         {% endif %}
     </ul>
 {% endif %}
-{% if totalCount > 0 %}
+{% if total_count > 0 %}
     <div class="float-right">
         {{ 'pagination.showing'|trans({}, 'messages') }} {{ ((current_page - 1) * limit) + 1 }}
-        {{ 'pagination.to'|trans({}, 'messages') }} <span>{{ ((current_page - 1) * limit) + currentCount }}</span>
-        {{ 'pagination.of'|trans({}, 'messages') }} <span>{{ totalCount }}</span>
+        {{ 'pagination.to'|trans({}, 'messages') }} <span>{{ ((current_page - 1) * limit) + current_count }}</span>
+        {{ 'pagination.of'|trans({}, 'messages') }} <span>{{ total_count }}</span>
         {{ 'pagination.records'|trans({}, 'messages') }}.
     </div>
 {% endif %}

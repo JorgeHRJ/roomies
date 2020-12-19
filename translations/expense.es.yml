@@ -2,6 +2,8 @@ expense:
   title:
     index: 'Gastos'
     new: 'Nuevo gasto'
+  toolbar:
+    new_expense: 'Nuevo gasto'
   table:
     column:
       id: 'ID'
