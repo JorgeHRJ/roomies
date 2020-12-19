@@ -1,11 +1,17 @@
 {% for flash_message in app.session.flashbag.get('app_error') %}
-    <div class="alert alert-danger bg-danger text-white border-0" role="alert">
+    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0" role="alert">
         <h6><strong>Error: </strong> {{ flash_message|raw }}</h6>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 {% endfor %}
 
 {% for flash_message in app.session.flashbag.get('app_success') %}
-    <div class="alert alert-success bg-success text-white border-0" role="alert">
+    <div class="alert alert-success alert-dismissible bg-success text-white border-0" role="alert">
         <h6>{{ flash_message|raw }}</h6>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 {% endfor %}

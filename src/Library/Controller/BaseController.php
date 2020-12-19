@@ -45,11 +45,11 @@ class BaseController extends AbstractController
     protected function getPaginationData(Request $request, array $data, int $page, int $limit): array
     {
         return [
-            'currentPage' => $page,
+            'current_page' => $page,
             'url' => $request->get('_route'),
-            'nbPages' => ceil($data['total']/$limit),
-            'currentCount' => count($data['data']),
-            'totalCount' => $data['total'],
+            'nb_pages' => ceil($data['total']/$limit),
+            'current_count' => count($data['data']),
+            'total_count' => $data['total'],
             'limit' => $limit
         ];
     }

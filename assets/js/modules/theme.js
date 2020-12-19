@@ -1,4 +1,4 @@
-import { Tooltip, Popover } from 'bootstrap';
+import { Tooltip, Popover, Dropdown } from 'bootstrap';
 import Pace from 'pace-js';
 
 function initIconNotifications() {
@@ -47,16 +47,23 @@ function initPreloader() {
 }
 
 function initTooltips() {
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
   const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
     return new Tooltip(tooltipTriggerEl);
   });
 }
 
 function initPopovers() {
-  const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="popover"]'));
+  const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
   const popoverList = popoverTriggerList.map((popoverTriggerEl) => {
     return new Popover(popoverTriggerEl);
+  });
+}
+
+function initDropdowns() {
+  const dropdownTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+  const dropdownList = dropdownTriggerList.map((dropdownTriggerEl) => {
+    return new Dropdown(dropdownTriggerEl);
   });
 }
 
@@ -71,6 +78,7 @@ function init() {
   initPace();
   initPreloader();
   initIconNotifications();
+  initDropdowns();
   initTooltips();
   initPopovers();
 }

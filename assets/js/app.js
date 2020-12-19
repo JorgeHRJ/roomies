@@ -5,7 +5,7 @@ import themeModule from './modules/theme';
 
 // import components
 import buttonLoaderComponent from './components/button_loader';
-import imagePreviewComponent from './components/image_preview';
+import fileInputComponent from './components/file_input';
 
 // import controllers
 import initHome from './controllers/home_controller';
@@ -13,7 +13,7 @@ import initExpense from './controllers/expense_controller';
 
 themeModule();
 buttonLoaderComponent();
-imagePreviewComponent();
+fileInputComponent();
 
 if (document.querySelector('[data-controller="home"]')) {
   initHome();
