@@ -56,7 +56,15 @@ class ExpenseService extends BaseService
     {
         $key = sprintf('%s_%d', DebtsCacheItem::DEBTS_CACHE_KEY, $this->contextService->getHome()->getId());
 
-        return $this->cache->get($key, new DebtsCacheItem($this->entityManager, $this->contextService));
+        return $this->cache->get($key, new DebtsCacheItem($this, $this->contextService, $this->entityManager));
+    }
+
+    /**
+     * @return Expense[]|array
+     */
+    public function getWithExpenseUsers(): array
+    {
+        return $this->repository->findWithExpenseUsers($this->contextService->getHome());
     }
 
     public function getSortFields(): array

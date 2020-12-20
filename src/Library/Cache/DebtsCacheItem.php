@@ -7,6 +7,7 @@ use App\Entity\ExpenseUser;
 use App\Entity\User;
 use App\Repository\ExpenseRepository;
 use App\Service\ContextService;
+use App\Service\ExpenseService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Cache\CacheItemInterface;
 use Symfony\Contracts\Cache\CallbackInterface;
@@ -17,25 +18,28 @@ class DebtsCacheItem implements CallbackInterface
     const DEBTS_CACHE_KEY = 'debts';
     const DEBTS_CACHE_EXPIRATION = 3600;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /** @var ExpenseService */
+    private $expenseService;
 
     /** @var ContextService */
     private $contextService;
 
-    /** @var ExpenseRepository */
-    private $expenseRepository;
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager, ContextService $contextService)
-    {
-        $this->entityManager = $entityManager;
+    public function __construct(
+        ExpenseService $expenseService,
+        ContextService $contextService,
+        EntityManagerInterface $entityManager
+    ) {
+        $this->expenseService = $expenseService;
         $this->contextService = $contextService;
-        $this->expenseRepository = $entityManager->getRepository(Expense::class);
+        $this->entityManager = $entityManager;
     }
 
     /**
      * @param CacheItemInterface|ItemInterface $item The item to compute the value for
-     * @param bool                             &$save Should be set to false when the value should not be saved in the pool
+     * @param bool $save Should be set to false when the value should not be saved in the pool
      *
      * @return mixed The computed value for the passed item
      */
@@ -43,9 +47,9 @@ class DebtsCacheItem implements CallbackInterface
     {
         $item->expiresAfter(self::DEBTS_CACHE_EXPIRATION);
 
-        $home = $this->contextService->getHome();
-        $expenses = $this->expenseRepository->findWithExpenseUsers($home);
+        $expenses = $this->expenseService->getWithExpenseUsers();
 
+        $home = $this->contextService->getHome();
         $debts = $this->getInitialDebts($home->getUsers()->toArray());
 
         return $this->getDebtsFromExpenses($debts, $expenses);
