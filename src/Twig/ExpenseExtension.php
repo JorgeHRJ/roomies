@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Twig;
+
+use App\Entity\User;
+use App\Service\ContextService;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
+class ExpenseExtension extends AbstractExtension
+{
+    /** @var ContextService */
+    private $contextService;
+
+    /** @var Security */
+    private $security;
+
+    /** @var TranslatorInterface */
+    private $translator;
+
+    public function __construct(ContextService $contextService, Security $security, TranslatorInterface $translator)
+    {
+        $this->contextService = $contextService;
+        $this->security = $security;
+        $this->translator = $translator;
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('get_debts_summary', [$this, 'getDebtsSummary']),
+            new TwigFunction('get_debts_explained', [$this, 'getDebtsExplained'])
+        ];
+    }
+
+    /**
+     * @param array $debts
+     * @return array
+     */
+    public function getDebtsSummary(array $debts): array
+    {
+        $ownDebts = $this->getOwnDebts($debts);
+        $currency = $this->contextService->getHome()->getCurrency();
+
+        $summary = ['to_you' => 0, 'to_them' => 0];
+
+        foreach ($ownDebts as $debt) {
+            if ($debt < 0) {
+                $summary['to_them'] -= $debt['amount'];
+            }
+
+            if ($debt > 0) {
+                $summary['to_you'] += $debt['amount'];
+            }
+        }
+
+        $summary['to_them'] = sprintf('%s %s', $summary['to_them'], $currency);
+        $summary['to_you'] = sprintf('%s %s', $summary['to_you'], $currency);
+
+        return $summary;
+    }
+
+    public function getDebtsExplained(array $debts): array
+    {
+        $ownDebts = $this->getOwnDebts($debts);
+        $currency = $this->contextService->getHome()->getCurrency();
+
+        $toYouLabel = $this->translator->trans('expense.summary.to_you', [], 'expense');
+        $toHimHerLabel = $this->translator->trans('expense.summary.to_him_her', [], 'expense');
+        $okLabel = $this->translator->trans('expense.summary.nothing_pending', [], 'expense');
+
+        $explainedItems = [];
+        foreach ($ownDebts as $debt) {
+            $label = $okLabel;
+            if ($debt['amount'] > 0) {
+                $label = $toYouLabel;
+            }
+
+            if ($debt['amount'] < 0) {
+                $label = $toHimHerLabel;
+            }
+
+            $explained = $label === $okLabel
+                ? sprintf('%s: %s', $debt['user_name'], $label)
+                : sprintf('%s: %s %s %s', $debt['user_name'], $label, $debt['amount'], $currency);
+            $explainedItems[] = $explained;
+        }
+
+        return $explainedItems;
+    }
+
+    /**
+     * @param array $debts
+     * @return array
+     */
+    private function getOwnDebts(array $debts): array
+    {
+        $user = $this->security->getUser();
+        if (!$user instanceof User) {
+            throw new AccessDeniedException('Not allowed');
+        }
+
+        return $debts[$user->getId()];
+    }
+}

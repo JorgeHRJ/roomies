@@ -19,8 +19,11 @@ home:
       mime_types_message: 'El formato de imagen no está permitido. Debe ser JPEG o PNG.'
       max_size_message: 'Tamaño de imagen superado. El máximo tamaño es 5 MB.'
     name:
-      label: 'Nombre'
+      label: 'Nombre *'
       placeholder: 'Elige un nombre que identifique a tu hogar'
+    currency:
+      label: 'Tipo de moneda *'
+      placeholder: 'Elige el tipo de moneda que usas'
     submit:
       label: 'Enviar'
   join:

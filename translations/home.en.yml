@@ -16,8 +16,11 @@ home:
       mime_types_message: 'Image format is not allowed. It must be JPEG o PNG.'
       max_size_message: 'Size image overreached. Max size is 5 MB.'
     name:
-      label: 'Name'
+      label: 'Name *'
       placeholder: 'Choose an identificative name for your home'
+    currency:
+      label: 'Currency *'
+      placeholder: 'Select the currency you use'
     submit:
       label: 'Send'
   join:

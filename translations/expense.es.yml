@@ -4,6 +4,14 @@ expense:
     new: 'Nuevo gasto'
   toolbar:
     new_expense: 'Nuevo gasto'
+  summary:
+    title: 'Resumen'
+    detail: 'En detalle'
+    to_them_total: 'Debes'
+    to_you_total: 'Te deben'
+    to_him_her: 'Le debes'
+    to_you: 'Te debe'
+    nothing_pending: '¡Nada pendiente!'
   table:
     column:
       id: 'ID'
