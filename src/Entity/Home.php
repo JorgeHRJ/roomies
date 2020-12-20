@@ -54,6 +54,13 @@ class Home
     private $hash;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="home_currency", type="string", length=1, options={"default": "€"})
+     */
+    private $currency;
+
+    /**
      * @var \DateTimeInterface|null
      *
      * @Assert\Type("\DateTimeInterface")
@@ -158,6 +165,25 @@ class Home
     public function setHash(string $hash): self
     {
         $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     * @return $this
+     */
+    public function setCurrency(string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }

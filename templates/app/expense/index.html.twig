@@ -10,6 +10,33 @@
             </a>
         </div>
     </div>
+    <div class="row mb-2">
+        <div class="col-6">
+            <div class="card bg-gray border-light shadow-sm">
+                <div class="card-body text-white">
+                    {% set debts_summary = get_debts_summary(debts) %}
+                    <h3 class="text-secondary">{{ 'expense.summary.title'|trans({}, 'expense') }}</h3>
+                    <h6>
+                        {{ 'expense.summary.to_you_total'|trans({}, 'expense') }}: {{ debts_summary.to_you }}
+                    </h6>
+                    <h6>
+                        {{ 'expense.summary.to_them_total'|trans({}, 'expense') }}: {{ debts_summary.to_them }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card bg-gray border-light shadow-sm">
+                <div class="card-body text-white">
+                    <h3 class="text-secondary">{{ 'expense.summary.detail'|trans({}, 'expense') }}</h3>
+                    {% set debts_explained = get_debts_explained(debts) %}
+                    {% for debt in debts_explained %}
+                        <h6>{{ debt }}</h6>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
     {{ include('components/flash.html.twig') }}
     <div class="card border-light shadow-sm mb-4">
         <div class="card-body">

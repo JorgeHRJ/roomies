@@ -73,7 +73,9 @@ class ExpenseController extends BaseController
     public function index(Request $request): Response
     {
         list($page, $limit, $sort, $dir, $filter) = $this->handleIndexRequest($request, self::LIST_LIMIT);
+
         $expenses = $this->expenseService->getAll($filter, $page, $limit, $sort, $dir);
+        $debts = $this->expenseService->getDebts();
 
         $paginationData = $this->getPaginationData($request, $expenses, $page, $limit);
 
@@ -84,6 +86,7 @@ class ExpenseController extends BaseController
                 'dir' => $request->query->get('dir'),
                 'paginationData' => $paginationData,
                 'params' => $request->query->all(),
+                'debts' => $debts
             ]
         ));
     }
