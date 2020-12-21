@@ -56,7 +56,7 @@ docker exec -it roomies-php composer install
 Install node dependencies
 ```bash
 cd </project/root>
-docker run -it -v $(pwd):/home/app roomies-node npm install
+docker run -it -v $(pwd):/home/app roomies-node yarn install
 ```
 
 To access node container
