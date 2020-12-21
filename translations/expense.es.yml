@@ -9,6 +9,8 @@ expense:
     detail: 'En detalle'
     to_them_total: 'Debes'
     to_you_total: 'Te deben'
+    to_them_total_none: '¡No debes nada!'
+    to_you_total_none: '¡No te deben nada!'
     to_him_her: 'Le debes'
     to_you: 'Te debe'
     nothing_pending: '¡Nada pendiente!'

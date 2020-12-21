@@ -9,6 +9,8 @@ expense:
     detail: 'Detailed'
     to_them_total: 'You owe'
     to_you_total: 'They owe you'
+    to_them_total_none: 'You owe nothing!'
+    to_you_total_none: 'No one owe you!'
     to_him_her: 'You owe him/her'
     to_you: 'He/she owe you'
     nothing_pending: 'Nothing pending!'

@@ -57,8 +57,23 @@ class ExpenseExtension extends AbstractExtension
             }
         }
 
-        $summary['to_them'] = sprintf('%s %s', $summary['to_them'], $currency);
-        $summary['to_you'] = sprintf('%s %s', $summary['to_you'], $currency);
+        $summary['to_them'] = $summary['to_them'] === 0
+            ? $this->translator->trans('expense.summary.to_them_total_none', [], 'expense')
+            : sprintf(
+                '%s %s %s',
+                $this->translator->trans('expense.summary.to_them_total', [], 'expense'),
+                $summary['to_them'],
+                $currency
+            );
+
+        $summary['to_you'] = $summary['to_you'] === 0
+            ? $this->translator->trans('expense.summary.to_you_total_none', [], 'expense')
+            : sprintf(
+                '%s %s %s',
+                $this->translator->trans('expense.summary.to_you_total', [], 'expense'),
+                $summary['to_you'],
+                $currency
+            );
 
         return $summary;
     }
@@ -103,6 +118,6 @@ class ExpenseExtension extends AbstractExtension
             throw new AccessDeniedException('Not allowed');
         }
 
-        return $debts[$user->getId()];
+        return isset($debts[$user->getId()]) ? $debts[$user->getId()] : [];
     }
 }

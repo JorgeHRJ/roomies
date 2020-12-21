@@ -1,0 +1,146 @@
+#!/bin/bash
+
+APP_PWD=$(pwd)
+DOCKER_PWD='infra/docker/local'
+NODE_PWD='/node'
+DOCKER_CONTAINER_PHP='roomies-php'
+DOCKER_CONTAINER_WEB='roomies-web'
+DOCKER_CONTAINER_DB='roomies-db'
+DOCKER_CONTAINER_NODE='roomies-node'
+
+# Docker setup tasks
+docker_build() {
+    EXTRA_PARAMS=''
+    if [ "$1" == "no-cache" ] ; then
+        EXTRA_PARAMS='--no-cache'
+    fi
+
+    cd $DOCKER_PWD || return
+    docker-compose build --pull $EXTRA_PARAMS
+    docker-compose build -t $DOCKER_CONTAINER_NODE $NODE_PWD $EXTRA_PARAMS
+    cd $APP_PWD || return
+}
+
+docker_up() {
+    cd $DOCKER_PWD || return
+    docker-compose up -d
+    cd $APP_PWD || return
+}
+
+docker_down() {
+    cd $DOCKER_PWD || return
+    docker-compose -p $DOCKER_PROJECT down
+    cd $APP_PWD || return
+}
+
+docker_reset() {
+  cd $DOCKER_PWD || return
+  docker-compose down
+  docker-compose up -d
+  cd $APP_PWD || return
+}
+
+docker_update() {
+  cd $DOCKER_PWD || return
+  docker-compose down
+  docker-compose up -d --build
+  cd $APP_PWD || return
+}
+
+# Docker access updates
+docker_db() {
+    docker exec -it $DOCKER_CONTAINER_DB mysql $1
+}
+
+docker_php() {
+    docker exec -it $DOCKER_CONTAINER_PHP bash
+}
+
+docker_web() {
+    docker exec -it $DOCKER_CONTAINER_WEB bash
+}
+
+# GIT tasks
+git_update() {
+  git checkout master
+  git pull origin master
+}
+
+# DB tasks
+schema_update() {
+  docker exec -it $DOCKER_CONTAINER_PHP bin/console doctrine:schema:update --dump-sql --force
+}
+
+# Node tasks
+modules_install() {
+  docker run -it -v "$APP_PWD":/home/app $DOCKER_CONTAINER_NODE yarn install
+}
+
+# Assets tasks
+assets_build() {
+  docker run -it -v "$APP_PWD":/home/app $DOCKER_CONTAINER_NODE yarn encore dev
+}
+
+assets_watch() {
+  docker run -it -v "$APP_PWD":/home/app $DOCKER_CONTAINER_NODE yarn encore dev --watch
+}
+
+case $1 in
+    "build")
+        docker_build $2
+    ;;
+
+    "up")
+        docker_up
+    ;;
+
+    "down")
+        docker_down
+    ;;
+
+    "reset")
+        docker_reset
+    ;;
+
+    "db")
+        docker_db $2
+    ;;
+
+    "php")
+        docker_php
+    ;;
+
+    "web")
+        docker_web
+    ;;
+
+    "git-update")
+        git_update
+    ;;
+
+    "schema-update")
+        schema_update
+    ;;
+
+    "modules_install")
+        modules_install
+    ;;
+
+    "assets-build")
+        assets_build
+    ;;
+
+    "assets-watch")
+        assets_watch
+    ;;
+
+    "uptodate")
+        git_update
+        docker_update
+        schema_update
+        modules_install
+        assets_build
+    ;;
+esac
+
+exit 0
