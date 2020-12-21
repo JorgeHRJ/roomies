@@ -29,7 +29,7 @@ docker_up() {
 
 docker_down() {
     cd $DOCKER_PWD || return
-    docker-compose -p $DOCKER_PROJECT down
+    docker-compose down
     cd $APP_PWD || return
 }
 
