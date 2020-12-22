@@ -115,30 +115,22 @@ class PageSetupExtension extends AbstractExtension
     /**
      * @param array $config
      */
-    public function configure(array $config)
+    public function configure(array $config): void
     {
         if (isset($config['title'])) {
-            if (empty($this->title)) {
-                $this->title = $config['title'];
-            }
+            $this->title = $config['title'];
         }
 
         if (isset($config['header'])) {
-            if (empty($this->header)) {
-                $this->header = $config['header'];
-            }
+            $this->header = $config['header'];
         }
 
         if (isset($config['subheader'])) {
-            if (empty($this->subheader)) {
-                $this->subheader = $config['subheader'];
-            }
+            $this->subheader = $config['subheader'];
         }
 
         if (isset($config['breadcrumbs'])) {
-            if (empty($this->breadcrumbs)) {
-                $this->breadcrumbs = $config['breadcrumbs'];
-            }
+            $this->breadcrumbs = $config['breadcrumbs'];
         }
 
         if (isset($config['body'])) {
