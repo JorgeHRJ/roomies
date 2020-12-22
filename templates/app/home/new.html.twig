@@ -4,6 +4,13 @@
 
 {% block bodyClass %}bg-primary{% endblock %}
 
+{% page_setup {
+    'title': 'home.title.new'|trans({}, 'home'),
+    'body': {
+        'class': 'bg-primary'
+    }
+} %}
+
 {% block body %}
     <div class="pt-5 pb-lg-12">
         <div class="container">

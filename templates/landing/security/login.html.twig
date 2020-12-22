@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'security.login.title'|trans({}, 'security') }}{% endblock %}
-
-{% block bodyClass %}bg-primary{% endblock %}
+{% page_setup {
+    'title': 'security.login.title'|trans({}, 'security'),
+    'body': {
+        'class': 'bg-primary'
+    }
+} %}
 
 {% block body %}
     <section class="vh-lg-100 d-flex align-items-center">

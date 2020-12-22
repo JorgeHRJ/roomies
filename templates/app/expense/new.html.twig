@@ -1,6 +1,26 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ 'expense.title.new'|trans({}, 'expense') }}{% endblock %}
+{% page_setup {
+    'title': 'expense.title.new'|trans({}, 'expense'),
+    'header': 'breadcrumb.items.expense.new.title'|trans({}, 'messages'),
+    'breadcrumbs': [
+        {
+            'name': 'breadcrumb.items.expense.index.name'|trans({}, 'messages'),
+            'path': path('app_expense_index')
+        },
+        {
+            'name': 'breadcrumb.items.expense.new.name'|trans({}, 'messages'),
+            'main': true
+        }
+    ],
+    'body': {
+        'attr': {
+            'controller': 'expense',
+            'page': 'new'
+        }
+    }
+} %}
+
 {% block bodyAttr %}data-controller="expense" data-page="new"{% endblock %}
 
 {% block content %}

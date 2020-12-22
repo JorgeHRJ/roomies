@@ -8,7 +8,7 @@
                 {{ include('components/sidebar.html.twig') }}
                 <main class="content">
                     {{ include('components/topbar.twig') }}
-                    {{ get_breadcrumb()|raw }}
+                    {{ include('components/breadcrumb.html.twig') }}
 
                     {% block content %}{% endblock %}
 

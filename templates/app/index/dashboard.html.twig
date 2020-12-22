@@ -1,6 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% page_setup {
+    'title': 'breadcrumb.items.dashboard.title'|trans({}, 'messages'),
+    'header': 'breadcrumb.items.dashboard.title'|trans({}, 'messages'),
+    'breadcrumbs': [
+        {
+            'name': 'breadcrumb.items.dashboard.name'|trans({}, 'messages'),
+            'main': true
+        }
+    ]
+} %}
 
 {% block content %}
     <div class="row">
