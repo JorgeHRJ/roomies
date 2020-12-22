@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Roomies | {% block title %}Inicio{% endblock %}</title>
+    <title>Roomies | {{ get_title() }}</title>
 
     {% block stylesheets %}
         <link type="text/css" rel="stylesheet" href="{{ preload(asset('build/app.css'), {as: 'style'}) }}"/>
     {% endblock %}
 </head>
-<body class="{% block bodyClass %}bg-soft{% endblock %}" {% block bodyAttr %}{% endblock %}>
+<body class="{{ get_body_class() }}" {{ get_body_attr() }}>
 {% block body %}{% endblock %}
 
 {% block translations %}{% endblock %}

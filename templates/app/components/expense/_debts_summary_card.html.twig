@@ -1,0 +1,12 @@
+<div class="col-6">
+    <div class="card bg-gray border-light shadow-sm">
+        <div class="card-body text-white">
+            <h3 class="text-secondary">{{ title }}</h3>
+            <ul>
+                {% for item in items %}
+                    <li><h6>{{ item }}</h6></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

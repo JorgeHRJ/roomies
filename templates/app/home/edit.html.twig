@@ -1,6 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ 'home.title.edit'|trans({}, 'home') }}{% endblock %}
+{% page_setup {
+    'title': 'home.title.edit'|trans({}, 'home'),
+    'header': 'breadcrumb.items.home.edit.title'|trans({}, 'messages'),
+    'breadcrumbs': [
+        {
+            'name': 'breadcrumb.items.home.edit.name'|trans({}, 'messages'),
+            'main': true
+        }
+    ]
+} %}
 
 {% block content %}
     <div class="row">

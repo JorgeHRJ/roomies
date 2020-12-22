@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block bodyClass %}bg-primary{% endblock %}
-{% block bodyAttr %}data-controller="home" data-page="join"{% endblock %}
+{% page_setup {
+    'title': 'home.join.title'|trans({}, 'home'),
+    'body': {
+        'class': 'bg-primary',
+        'attr': {
+            'controller': 'home',
+            'page': 'join'
+        }
+    }
+} %}
 
 {% block body %}
     <div class="pt-5 pb-lg-12">

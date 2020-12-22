@@ -1,38 +1,35 @@
 {% extends 'layout.html.twig' %}
 
+{% page_setup {
+    'title': 'expense.title.index'|trans({}, 'expense'),
+    'header': 'breadcrumb.items.expense.index.title'|trans({}, 'messages'),
+    'breadcrumbs': [
+        {
+            'name': 'breadcrumb.items.expense.index.name'|trans({}, 'messages'),
+            'main': true
+        }
+    ]
+} %}
+
 {% block title %}{{ 'expense.title.index'|trans({}, 'expense') }}{% endblock %}
 
 {% block content %}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-2">
         <div class="btn-toolbar dropdown">
-            <a href="{{ path('app_expense_new') }}" class="btn btn-primary btn-sm mr-2">
+            <a href="{{ path('app_expense_new') }}" class="btn btn-secondary text-dark mr-2">
                 <span class="fas fa-plus mr-2"></span>{{ 'expense.toolbar.new_expense'|trans({}, 'expense') }}
             </a>
         </div>
     </div>
     <div class="row mb-2">
-        <div class="col-6">
-            <div class="card bg-gray border-light shadow-sm">
-                <div class="card-body text-white">
-                    {% set debts_summary = get_debts_summary(debts) %}
-                    <h3 class="text-secondary">{{ 'expense.summary.title'|trans({}, 'expense') }}</h3>
-                    {% for debt in debts_summary %}
-                        <h6>{{ debt }}</h6>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card bg-gray border-light shadow-sm">
-                <div class="card-body text-white">
-                    <h3 class="text-secondary">{{ 'expense.summary.detail'|trans({}, 'expense') }}</h3>
-                    {% set debts_explained = get_debts_explained(debts) %}
-                    {% for debt in debts_explained %}
-                        <h6>{{ debt }}</h6>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+        {{ include('app/components/expense/_debts_summary_card.html.twig', {
+            'title': 'expense.summary.title'|trans({}, 'expense'),
+            'items': get_debts_summary(debts)
+        }) }}
+        {{ include('app/components/expense/_debts_summary_card.html.twig', {
+            'title': 'expense.summary.detail'|trans({}, 'expense'),
+            'items': get_debts_explained(debts)
+        }) }}
     </div>
     {{ include('components/flash.html.twig') }}
     <div class="card border-light shadow-sm mb-4">

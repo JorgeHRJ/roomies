@@ -1,19 +1,26 @@
 <div class="py-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-            <li class="breadcrumb-item"><a href="{{ path('app_index_dashboard') }}"><span class="fas fa-home"></span></a></li>
-            {% for item in items %}
-                {% if item.path is not empty %}
-                    <li class="breadcrumb-item"><a href="{{ item.path }}">{{ item.name }}</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ path('app_index_dashboard') }}"><span class="fas fa-home"></span></a>
+            </li>
+            {% set breadcrumbs = get_breadcrumbs() %}
+            {% for breadcrumb in breadcrumbs %}
+                {% if breadcrumb.path is defined and breadcrumb.path is not empty %}
+                    <li class="breadcrumb-item"><a href="{{ breadcrumb.path }}">{{ breadcrumb.name }}</a></li>
                 {% else %}
-                    <li class="breadcrumb-item active" aria-current="page">{{ item.name }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.name }}</li>
                 {% endif %}
             {% endfor %}
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1>{{ title }}</h1>
+            <h1>{{ get_header() }}</h1>
+            {% set subheader = get_subheader() %}
+            {% if subheader is not empty %}
+                <p>{{ subheader }}</p>
+            {% endif %}
         </div>
     </div>
 </div>
