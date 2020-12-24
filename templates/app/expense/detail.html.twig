@@ -1,0 +1,102 @@
+{% extends 'layout.html.twig' %}
+
+{% page_setup {
+    'title': 'expense.title.detail'|trans({}, 'expense'),
+    'header': 'breadcrumb.items.expense.detail.title'|trans({}, 'messages'),
+    'breadcrumbs': [
+        {
+            'name': 'breadcrumb.items.expense.index.name'|trans({}, 'messages'),
+            'path': path('app_expense_index')
+        },
+        {
+            'name': 'breadcrumb.items.expense.detail.name'|trans({}, 'messages'),
+            'main': true
+        }
+    ]
+} %}
+
+{% block content %}
+    <div class="card border-light shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row mb-4 justify-content-center">
+                <div class="col-9">
+                    <div class="mb-3 align-items-center justify-content-center">
+                        <h1 class="mb-0">{{ expense.title }}</h1>
+                        <p>{{ expense.description }}</p>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-between mb-3">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="font-weight-bold">{{ 'expense.detail.tags'|trans({}, 'expense') }}</span>
+                                {% for tag in expense.tags %}
+                                    <span class="badge badge-lg bg-secondary text-dark">{{ tag.name }}</span>
+                                {% endfor %}
+                            </li>
+                            <li class="list-group-item">
+                                <span class="font-weight-bold">{{ 'expense.detail.amount'|trans({}, 'expense') }}</span>
+                                {{ expense.amount }} {{ get_currency() }}
+                            </li>
+                            <li class="list-group-item">
+                                <span class="font-weight-bold">{{ 'expense.detail.paid_by'|trans({}, 'expense') }}</span>
+                                {{ expense.paidBy.name }}
+                            </li>
+                            {% if expense.paidAt is not empty %}
+                                <li class="list-group-item">
+                                    <span class="font-weight-bold">{{ 'expense.detail.paid_at'|trans({}, 'expense') }}</span>
+                                    {{ expense.paidAt|date('d/m/Y') }}
+                                </li>
+                            {% endif %}
+                            <li class="list-group-item">
+                                <span class="font-weight-bold">{{ 'expense.detail.created_at'|trans({}, 'expense') }}</span>
+                                {{ expense.createdAt|date('d/m/Y') }}
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="mb-2">{{ 'expense.detail.table.title'|trans({}, 'expense') }}</h3>
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead class="bg-light border-top">
+                                    <tr>
+                                        <th scope="row" class="border-0">
+                                            {{ 'expense.detail.table.person'|trans({}, 'expense') }}
+                                        </th>
+                                        <th scope="row" class="border-0">
+                                            {{ 'expense.detail.table.part'|trans({}, 'expense') }}
+                                        </th>
+                                        <th scope="row" class="border-0">
+                                            {{ 'expense.detail.table.paid_at'|trans({}, 'expense') }}
+                                        </th>
+                                        <th scope="row" class="border-0">
+                                            {{ 'expense.detail.table.status'|trans({}, 'expense') }}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for expense_user in expense.expenseUsers %}
+                                        <tr>
+                                            <td>{{ expense_user.user.name }}</td>
+                                            <td>{{ expense_user.amount }} {{ get_currency() }}</td>
+                                            <td>{{ expense_user.paidAt is not empty ? expense_user.paidAt|date('d/m/Y') : '-' }}
+                                            </td>
+                                            <td>
+                                                {% set status_info = get_expense_user_status(expense_user) %}
+                                                <span class="{{ "badge badge-lg bg-#{status_info.badge_class} text-white" }}">
+                                                    {{ status_info.label }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

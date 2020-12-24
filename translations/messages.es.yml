@@ -33,6 +33,10 @@ breadcrumb:
       new:
         name: 'Añadir gasto'
         title: 'Añadir gasto'
+      detail:
+        name: 'Detalle'
+        title: 'Detalle'
+
 alert:
   no_results: 'Parece que no hay registros de momento.'
 
@@ -59,3 +63,4 @@ button_titles:
   view_detail: 'Ver detalle'
   edit: 'Editar'
   remove: 'Eliminar'
+  back: 'Atrás'

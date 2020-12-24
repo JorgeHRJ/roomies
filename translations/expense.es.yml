@@ -2,6 +2,7 @@ expense:
   title:
     index: 'Gastos'
     new: 'Nuevo gasto'
+    detail: 'Detalle'
   toolbar:
     new_expense: 'Nuevo gasto'
   summary:
@@ -40,6 +41,9 @@ expense:
     paid_by:
       label: 'Pagado por *'
       placeholder: 'Elige la persona que ha pagado'
+    paid_at:
+      label: 'Pagado en'
+      placeholder: 'Selecciona la fecha cuando fue pagado'
     tags:
       label: 'Etiquetas'
       placeholder: 'Elige una o varias etiquetas sobre el gasto'
@@ -49,11 +53,26 @@ expense:
     new:
       success_message: '¡Gasto añadido con éxito!'
       error_message: 'Hubo algún error a la hora de añadir el gasto. Por favor, prueba de nuevo.'
+  detail:
+    tags: 'Etiquetas:'
+    paid_by: 'Pagado por:'
+    amount: 'Cantidad:'
+    paid_at: 'Pagado en:'
+    created_at: 'Añadido en:'
+    table:
+      title: 'Partes'
+      person: 'Persona'
+      part: 'Parte'
+      status: 'Estado'
+      paid_at: 'Pagada en'
 
 expense_user:
   title: 'Gastos por persona'
   choose_people_involved: 'Elige quiénes están involucrados en este gasto'
   people_involved: 'Personas involucradas'
+  status:
+    pending: 'Pendiente'
+    paid: 'Pagado'
   form:
     part: 'Parte correspondiente:'
     status:
@@ -61,6 +80,9 @@ expense_user:
     user:
       label: 'Persona *'
       placeholder: 'Persona involucrada en el pago'
+    paid_at:
+      label: 'Pagado en'
+      placeholder: 'Selecciona la fecha cuando fue pagado'
 
 expense_tag:
   title: 'Etiquetas de gastos'

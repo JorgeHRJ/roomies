@@ -80,7 +80,7 @@
                             <td class="border-0">{{ expense.createdAt|date('d/m/Y') }}</td>
                             <td class="border-0">
                                 <div class="btn-group">
-                                    <a href="#"
+                                    <a href="{{ path('app_expense_detail', {'id': expense.id}) }}"
                                        class="btn btn-sm btn-primary"
                                        title="{{ 'button_titles.view_detail'|trans({}, 'messages') }}">
                                         <span class="far fa-eye"></span>

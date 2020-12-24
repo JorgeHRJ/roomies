@@ -43,7 +43,7 @@ class TaskTurnUser
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="taskturn_created_at", type="datetime", nullable=false)
@@ -53,7 +53,7 @@ class TaskTurnUser
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="taskturn_modified_at", type="datetime", nullable=true)

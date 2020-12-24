@@ -2,6 +2,7 @@ expense:
   title:
     index: 'Expenses'
     new: 'New expense'
+    detail: 'Detail'
   toolbar:
     new_expense: 'New expense'
   summary:
@@ -40,6 +41,9 @@ expense:
     paid_by:
       label: 'Paid by *'
       placeholder: 'Pick the person who paid'
+    paid_at:
+      label: 'Paid at'
+      placeholder: 'Pick the date it was paid'
     tags:
       label: 'Tags'
       placeholder: 'Choose one or more tags about the expense'
@@ -49,11 +53,26 @@ expense:
     new:
       success_message: 'Expensed added successfully!'
       error_message: 'There was some error when trying to add the new expense. Please, try again'
+  detail:
+    tags: 'Tags'
+    paid_by: 'Paid by:'
+    amount: 'Amount:'
+    paid_at: 'Paid at:'
+    created_at: 'Added at:'
+    table:
+      title: 'Parts'
+      person: 'Person'
+      part: 'Part'
+      status: 'Status'
+      paid_at: 'Paid at'
 
 expense_user:
   title: 'Expenses per person'
   choose_people_involved: 'Choose who are involved in this expense'
   people_involved: 'People involved'
+  status:
+    pending: 'Pending'
+    paid: 'Paid'
   form:
     part: 'Corresponding part:'
     status:
@@ -61,6 +80,9 @@ expense_user:
     user:
       label: 'Person *'
       placeholder: 'Person involved in the payment'
+    paid_at:
+      label: 'Paid at'
+      placeholder: 'Pick the date it was paid'
 
 expense_tag:
   title: 'Expense tags'
