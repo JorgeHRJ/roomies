@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\Expense;
 use App\Entity\ExpenseUser;
+use App\Entity\Home;
+use App\Entity\User;
 use App\Library\Cache\DebtsCacheItem;
 use App\Library\Repository\BaseRepository;
 use App\Library\Service\BaseService;
@@ -46,10 +48,19 @@ class ExpenseService extends BaseService
             if ($expenseUser->getUser()->getId() === $entity->getPaidBy()->getId()) {
                 $expenseUser->setStatus(ExpenseUser::PAID_STATUS);
             }
+
+            if ($expenseUser->getStatus() === ExpenseUser::PENDING_STATUS) {
+                $expenseUser->setPaidAt(null);
+            }
+
             $expenseUser->setAmount((string) $amountPerPerson);
         }
 
-        return parent::create($entity);
+        $entity = parent::create($entity);
+
+        $this->resetDebts();
+
+        return $entity;
     }
 
     public function getDebts(): array
@@ -59,12 +70,29 @@ class ExpenseService extends BaseService
         return $this->cache->get($key, new DebtsCacheItem($this, $this->contextService, $this->entityManager));
     }
 
+    public function resetDebts(): void
+    {
+        $key = sprintf('%s_%d', DebtsCacheItem::DEBTS_CACHE_KEY, $this->contextService->getHome()->getId());
+        $this->cache->delete($key);
+        $this->cache->get($key, new DebtsCacheItem($this, $this->contextService, $this->entityManager));
+    }
+
     /**
      * @return Expense[]|array
      */
     public function getWithExpenseUsers(): array
     {
         return $this->repository->findWithExpenseUsers($this->contextService->getHome());
+    }
+
+    /**
+     * @param Home $home
+     * @param int $id
+     * @return Expense|null
+     */
+    public function getByIdAndHome(Home $home, int $id): ?Expense
+    {
+        return $this->repository->findByIdAndHome($home, $id);
     }
 
     public function getSortFields(): array

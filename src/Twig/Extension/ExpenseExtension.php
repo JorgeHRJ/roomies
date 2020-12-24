@@ -2,6 +2,7 @@
 
 namespace App\Twig\Extension;
 
+use App\Entity\ExpenseUser;
 use App\Entity\User;
 use App\Service\ContextService;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -32,7 +33,8 @@ class ExpenseExtension extends AbstractExtension
     {
         return [
             new TwigFunction('get_debts_summary', [$this, 'getDebtsSummary']),
-            new TwigFunction('get_debts_explained', [$this, 'getDebtsExplained'])
+            new TwigFunction('get_debts_explained', [$this, 'getDebtsExplained']),
+            new TwigFunction('get_expense_user_status', [$this, 'getExpenseUserStatus'])
         ];
     }
 
@@ -105,6 +107,29 @@ class ExpenseExtension extends AbstractExtension
         }
 
         return $explainedItems;
+    }
+
+    /**
+     * @param ExpenseUser $expenseUser
+     * @return array
+     * @throws \Exception
+     */
+    public function getExpenseUserStatus(ExpenseUser $expenseUser): array
+    {
+        switch ($expenseUser->getStatus()) {
+            case ExpenseUser::PENDING_STATUS:
+                return [
+                    'label' => $this->translator->trans('expense_user.status.pending', [], 'expense'),
+                    'badge_class' => 'danger'
+                ];
+            case ExpenseUser::PAID_STATUS:
+                return [
+                    'label' => $this->translator->trans('expense_user.status.paid', [], 'expense'),
+                    'badge_class' => 'success'
+                ];
+            default:
+                throw new \Exception('Not handled status!');
+        }
     }
 
     /**

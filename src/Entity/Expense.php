@@ -80,7 +80,16 @@ class Expense implements BlameableEntityInterface
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
+     *
+     * @ORM\Column(name="expense_paid_at", type="datetime", nullable=true)
+     */
+    private $paidAt;
+
+    /**
+     * @var \DateTimeInterface|null
+     *
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="expense_created_at", type="datetime", nullable=false)
@@ -90,7 +99,7 @@ class Expense implements BlameableEntityInterface
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="expense_modified_at", type="datetime", nullable=true)
@@ -325,6 +334,25 @@ class Expense implements BlameableEntityInterface
     public function setPaidBy(?User $paidBy): self
     {
         $this->paidBy = $paidBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getPaidAt(): ?\DateTimeInterface
+    {
+        return $this->paidAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $paidAt
+     * @return $this
+     */
+    public function setPaidAt(?\DateTimeInterface $paidAt): self
+    {
+        $this->paidAt = $paidAt;
 
         return $this;
     }

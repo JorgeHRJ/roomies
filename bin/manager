@@ -60,6 +60,10 @@ docker_web() {
     docker exec -it $DOCKER_CONTAINER_WEB bash
 }
 
+docker_node() {
+    docker run -it -v "$APP_PWD":/home/app $DOCKER_CONTAINER_NODE bash
+}
+
 # GIT tasks
 git_update() {
   git checkout master
@@ -112,6 +116,10 @@ case $1 in
 
     "web")
         docker_web
+    ;;
+
+    "node")
+        docker_node
     ;;
 
     "git-update")

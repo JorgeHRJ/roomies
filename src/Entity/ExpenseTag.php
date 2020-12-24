@@ -47,7 +47,7 @@ class ExpenseTag
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="expensetag_created_at", type="datetime", nullable=false)
@@ -57,7 +57,7 @@ class ExpenseTag
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="expensetag_modified_at", type="datetime", nullable=true)

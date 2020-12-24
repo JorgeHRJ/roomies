@@ -1,4 +1,5 @@
 import Choices from "choices.js";
+import { initDatepicker } from "../components/datepicker";
 
 const USER_BUTTON_ACTIONS = {
   add: 'remove',
@@ -70,6 +71,9 @@ function addUserRow(button) {
 
   // add user id to the input
   row.querySelector(`input#expense_expenseUsers_${id}_user`).value = parseInt(id, 10);
+
+  // init datepicker
+  initDatepicker(row.querySelector('[data-component="datepicker"]'));
 }
 
 function handleUserButton(event) {
@@ -100,6 +104,7 @@ function handleCloseRow(element) {
 
 function handleContainerClick(event) {
   const element = event.target;
+  console.log(element.dataset);
   switch (element.dataset.component) {
     case 'close-row':
       handleCloseRow(element);

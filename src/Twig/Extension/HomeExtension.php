@@ -45,7 +45,8 @@ class HomeExtension extends AbstractExtension
             new TwigFunction('get_current_home', [$this, 'getCurrentHome']),
             new TwigFunction('get_homes', [$this, 'getHomes']),
             new TwigFunction('get_avatar', [$this, 'getAvatar']),
-            new TwigFunction('get_home_avatar', [$this, 'getHomeAvatar'])
+            new TwigFunction('get_home_avatar', [$this, 'getHomeAvatar']),
+            new TwigFunction('get_currency', [$this, 'getCurrency']),
         ];
     }
 
@@ -85,5 +86,13 @@ class HomeExtension extends AbstractExtension
     public function getHomeAvatar(Home $home): ?File
     {
         return $this->fileService->getAvatarByHome($home);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->contextService->getHome()->getCurrency();
     }
 }

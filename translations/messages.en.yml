@@ -33,6 +33,9 @@ breadcrumb:
       new:
         name: 'New expense'
         title: 'New expense'
+      detail:
+        name: 'Detail'
+        title: 'Detail'
 
 alert:
   no_results: 'It seems there are no records at the moment.'
@@ -60,3 +63,4 @@ button_titles:
   view_detail: 'View detail'
   edit: 'Edit'
   remove: 'Remove'
+  back: 'Back'

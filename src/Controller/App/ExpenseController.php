@@ -14,6 +14,7 @@ use App\Service\UserService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -89,6 +90,27 @@ class ExpenseController extends BaseController
                 'debts' => $debts
             ]
         ));
+    }
+
+    /**
+     * @Route({
+     *     "es": "/{id}",
+     *     "en": "/{id}"
+     * }, requirements={"id"="\d+"}, name="detail")
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function detail(int $id): Response
+    {
+        $home = $this->contextService->getHome();
+
+        $expense = $this->expenseService->getByIdAndHome($home, $id);
+        if (!$expense instanceof Expense) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('app/expense/detail.html.twig', ['expense' => $expense]);
     }
 
     /**

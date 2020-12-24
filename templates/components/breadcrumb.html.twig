@@ -5,8 +5,10 @@
                 <a href="{{ path('app_index_dashboard') }}"><span class="fas fa-home"></span></a>
             </li>
             {% set breadcrumbs = get_breadcrumbs() %}
+            {% set previous_breadcrumb = null %}
             {% for breadcrumb in breadcrumbs %}
                 {% if breadcrumb.path is defined and breadcrumb.path is not empty %}
+                    {% set previous_breadcrumb = breadcrumb %}
                     <li class="breadcrumb-item"><a href="{{ breadcrumb.path }}">{{ breadcrumb.name }}</a></li>
                 {% else %}
                     <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.name }}</li>
@@ -14,6 +16,16 @@
             {% endfor %}
         </ol>
     </nav>
+    {% if previous_breadcrumb is not empty %}
+        <div class="row mb-2">
+            <a class="btn btn-icon-only btn-circle btn-secondary btn-sm"
+               href="{{ previous_breadcrumb.path }}"
+               type="button"
+               title="{{ 'button_titles.back'|trans({}, 'messages') }}">
+                <span aria-hidden="true" class="fas fa-chevron-left"></span>
+            </a>
+        </div>
+    {% endif %}
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
             <h1>{{ get_header() }}</h1>

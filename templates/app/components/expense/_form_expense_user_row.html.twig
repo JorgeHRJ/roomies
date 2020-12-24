@@ -4,8 +4,7 @@
     <div class="card-header d-flex align-items-center p-3">
         <h3 class="mb-0" data-component="collection-item-title"></h3>
         <div class="ml-auto">
-            <button type="button" class="close">
-                <span class="text-secondary" data-component="close-row" data-id="__name__">&times;</span>
+            <button type="button" class="btn-close btn-close-secondary" data-component="close-row" data-id="__name__">
             </button>
         </div>
     </div>
@@ -18,6 +17,10 @@
             <div class="col-12 form-check form-switch">
                 {{ form_widget(expenseUserForm.status, {'attr': {'class': 'form-check-input'}}) }}
                 {{ form_label(expenseUserForm.status) }}
+            </div>
+            <div class="col-12">
+                {{ form_label(expenseUserForm.paidAt) }}
+                {{ form_widget(expenseUserForm.paidAt, {'attr': {'class': 'form-control', 'data-component': 'datepicker'}}) }}
             </div>
         </div>
     </div>

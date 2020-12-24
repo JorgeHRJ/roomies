@@ -101,7 +101,7 @@ class Task implements BlameableEntityInterface
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="task_created_at", type="datetime", nullable=false)
@@ -111,7 +111,7 @@ class Task implements BlameableEntityInterface
     /**
      * @var \DateTimeInterface|null
      *
-     * @Assert\DateTime
+     * @Assert\Type("\DateTimeInterface")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="task_modified_at", type="datetime", nullable=true)
