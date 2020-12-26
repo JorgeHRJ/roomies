@@ -59,12 +59,18 @@ expense:
     amount: 'Cantidad:'
     paid_at: 'Pagado en:'
     created_at: 'Añadido en:'
+    titles:
+      parts: 'Partes'
+      info: 'Información'
+      attached: 'Adjunto'
     table:
-      title: 'Partes'
       person: 'Persona'
       part: 'Parte'
       status: 'Estado'
       paid_at: 'Pagada en'
+    buttons:
+      show_pdf: 'Ver ampliado'
+      show_image: 'Ver ampliada'
 
 expense_user:
   title: 'Gastos por persona'

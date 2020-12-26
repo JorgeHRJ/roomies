@@ -6,7 +6,7 @@ ENV TZ=UTC
 RUN apt-get update && apt-get install -y vim curl git unzip wget
 
 # php 7.4 setup
-RUN apt-get update && apt-get install -y php-cli php-mysql php-xml php-curl php-mbstring php-intl
+RUN apt-get update && apt-get install -y php-cli php-mysql php-xml php-curl php-mbstring php-intl php-imagick
 
 ADD etc/php/7.4/cli/conf.d/ /etc/php/7.4/cli/conf.d/
 RUN mkdir /run/php

@@ -26,6 +26,7 @@
                     </div>
                     <hr>
                     <div class="row justify-content-between mb-3">
+                        <h3 class="mb-2">{{ 'expense.detail.titles.info'|trans({}, 'expense') }}</h3>
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <span class="font-weight-bold">{{ 'expense.detail.tags'|trans({}, 'expense') }}</span>
@@ -56,7 +57,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="mb-2">{{ 'expense.detail.table.title'|trans({}, 'expense') }}</h3>
+                            <h3 class="mb-2">{{ 'expense.detail.titles.parts'|trans({}, 'expense') }}</h3>
                             <div class="table-responsive">
                                 <table class="table mb-0">
                                     <thead class="bg-light border-top">
@@ -95,8 +96,35 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    {% if expense.file is not empty %}
+                    <div class="row">
+                        <h3 class="mb-2">{{ 'expense.detail.titles.attached'|trans({}, 'expense') }}</h3>
+                        {% if expense.file.type == constant('App\\Entity\\File::IMAGE_TYPE') %}
+                            <img alt="Attached file"
+                                 class="img-responsive lazy"
+                                 data-src="{{ asset(expense.file.path) }}"
+                                 data-component="image-expandable">
+                        {% elseif expense.file.type == constant('App\\Entity\\File::DOC_TYPE') %}
+                            <div class="col-12">
+                                <iframe src="{{ "#{asset(expense.file.path)}#toolbar=0" }}"
+                                        width="100%"
+                                        height="500px"></iframe>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3 text-center">
+                                    <a href="{{ asset(expense.file.path) }}" target="_blank" class="btn btn-secondary">
+                                        <span class="fas fa-search mr-2"></span>
+                                        {{ 'expense.detail.buttons.show_pdf'|trans({}, 'expense') }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {{ include('app/components/_image_modal.html.twig') }}
 {% endblock %}
