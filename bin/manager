@@ -89,6 +89,11 @@ assets_watch() {
   docker run -it -v "$APP_PWD":/home/app $DOCKER_CONTAINER_NODE yarn encore dev --watch
 }
 
+# Quality tasks
+qualitify() {
+  docker exec -it $DOCKER_CONTAINER_PHP bin/qualitify.sh
+}
+
 case $1 in
     "build")
         docker_build $2
@@ -140,6 +145,10 @@ case $1 in
 
     "assets-watch")
         assets_watch
+    ;;
+
+    "qualitify")
+        qualitify
     ;;
 
     "uptodate")
