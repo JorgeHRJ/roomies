@@ -39,7 +39,8 @@
                             <div class="card border-light text-center p-0">
                                 <div class="card-body pb-2">
                                     {% if avatar is not empty %}
-                                        <img src="{{ asset(avatar.path) }}" class="user-avatar large-avatar mx-auto mb-1"
+                                        <img data-src="{{ asset(avatar.path) }}"
+                                             class="user-avatar large-avatar mx-auto mb-1 lazy"
                                              alt="{{ current_home.name }}">
                                     {% else %}
                                         <span><i class="fas fa-home fa-2x text-primary"></i></span>

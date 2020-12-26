@@ -41,8 +41,23 @@ class ExpenseService extends BaseService
     public function create($entity)
     {
         $expenseUsers = $entity->getExpenseUsers();
-        $amountPerPerson = round(($entity->getAmount() / $expenseUsers->count()), 2);
 
+        // check paid by expense user exists
+        $expenseUsersIds = array_map(function (ExpenseUser $expenseUser) {
+            return $expenseUser->getId();
+        }, $expenseUsers->toArray());
+        if (!in_array($entity->getPaidBy()->getId(), $expenseUsersIds)) {
+            $expenseUser = new ExpenseUser();
+            $expenseUser->setUser($entity->getPaidBy());
+            $expenseUser->setExpense($entity);
+            $expenseUser->setPaidAt($entity->getPaidAt());
+            $expenseUser->setStatus(ExpenseUser::PAID_STATUS);
+
+            $expenseUsers->add($expenseUser);
+        }
+
+        // set every part to the users
+        $amountPerPerson = round(($entity->getAmount() / $expenseUsers->count()), 2);
         /** @var ExpenseUser $expenseUser */
         foreach ($expenseUsers as $expenseUser) {
             if ($expenseUser->getUser()->getId() === $entity->getPaidBy()->getId()) {
@@ -56,8 +71,10 @@ class ExpenseService extends BaseService
             $expenseUser->setAmount((string) $amountPerPerson);
         }
 
+        // persist in db
         $entity = parent::create($entity);
 
+        // reset cache
         $this->resetDebts();
 
         return $entity;
@@ -74,7 +91,6 @@ class ExpenseService extends BaseService
     {
         $key = sprintf('%s_%d', DebtsCacheItem::DEBTS_CACHE_KEY, $this->contextService->getHome()->getId());
         $this->cache->delete($key);
-        $this->cache->get($key, new DebtsCacheItem($this, $this->contextService, $this->entityManager));
     }
 
     /**

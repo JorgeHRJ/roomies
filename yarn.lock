@@ -1785,6 +1785,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001165:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001165.tgz#32955490d2f60290bb186bb754f2981917fa744f"
   integrity sha512-8cEsSMwXfx7lWSUMA2s08z9dIgsnR5NAqjXP23stdsU3AUWkCr/rr4s4OFtHXn5XXr6+7kam3QFVoYyXNPdJPA==
 
+caniuse-lite@^1.0.30001161:
+  version "1.0.30001170"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001170.tgz#0088bfecc6a14694969e391cc29d7eb6362ca6a7"
+  integrity sha512-Dd4d/+0tsK0UNLrZs3CvNukqalnVTRrxb5mcQm8rHL49t7V5ZaTygwXkrq+FB+dVDf++4ri8eJnFEJAB8332PA==
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -7551,6 +7556,13 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+vanilla-lazyload@^17.3.0:
+  version "17.3.0"
+  resolved "https://registry.yarnpkg.com/vanilla-lazyload/-/vanilla-lazyload-17.3.0.tgz#9d674da4a69637891772f4f5f66c25b7505057c2"
+  integrity sha512-RZ0MLH6hGKjTHyEzpuG03qNQ0oSj4V2UfpkqUw9QQsIa5FOKritYjDbAr1Lqy767HgS9A4locR5DIHlK727WMQ==
+  dependencies:
+    caniuse-lite "^1.0.30001161"
 
 vanillajs-datepicker@^1.0.3:
   version "1.0.3"

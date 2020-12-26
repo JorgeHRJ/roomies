@@ -59,12 +59,18 @@ expense:
     amount: 'Amount:'
     paid_at: 'Paid at:'
     created_at: 'Added at:'
+    titles:
+      parts: 'Parts'
+      info: 'Information'
+      attached: 'Attached'
     table:
-      title: 'Parts'
       person: 'Person'
       part: 'Part'
       status: 'Status'
       paid_at: 'Paid at'
+    buttons:
+      show_pdf: 'Show expanded'
+      show_image: 'Show expanded'
 
 expense_user:
   title: 'Expenses per person'
