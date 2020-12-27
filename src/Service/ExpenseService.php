@@ -4,8 +4,8 @@ namespace App\Service;
 
 use App\Entity\Expense;
 use App\Entity\ExpenseUser;
+use App\Entity\File;
 use App\Entity\Home;
-use App\Entity\User;
 use App\Library\Cache\DebtsCacheItem;
 use App\Library\Repository\BaseRepository;
 use App\Library\Service\BaseService;
@@ -22,15 +22,20 @@ class ExpenseService extends BaseService
     /** @var CacheInterface */
     private $cache;
 
+    /** @var FileService */
+    private $fileService;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         LoggerInterface $logger,
         ContextService $contextService,
-        CacheInterface $cache
+        CacheInterface $cache,
+        FileService $fileService
     ) {
         parent::__construct($entityManager, $logger, $contextService);
         $this->repository = $entityManager->getRepository(Expense::class);
         $this->cache = $cache;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -78,6 +83,21 @@ class ExpenseService extends BaseService
         $this->resetDebts();
 
         return $entity;
+    }
+
+    /**
+     * @param Expense $entity
+     * @throws \Exception
+     */
+    public function remove($entity): void
+    {
+        parent::remove($entity);
+
+        if ($entity->getFile() instanceof File) {
+            $this->fileService->remove($entity->getFile());
+        }
+
+        $this->resetDebts();
     }
 
     public function getDebts(): array

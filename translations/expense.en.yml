@@ -53,6 +53,9 @@ expense:
     new:
       success_message: 'Expensed added successfully!'
       error_message: 'There was some error when trying to add the new expense. Please, try again'
+  remove:
+    success_message: 'Expensed removed successfully!'
+    error_message: 'There was some error when trying to remove the new expense. Please, try again'
   detail:
     tags: 'Tags'
     paid_by: 'Paid by:'

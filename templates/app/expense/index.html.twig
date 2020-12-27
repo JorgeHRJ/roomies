@@ -85,6 +85,11 @@
                                        title="{{ 'button_titles.view_detail'|trans({}, 'messages') }}">
                                         <span class="far fa-eye"></span>
                                     </a>
+                                    <a href="{{ path('app_expense_remove', {'id': expense.id}) }}"
+                                       class="btn btn-sm btn-primary"
+                                       title="{{ 'button_titles.remove'|trans({}, 'messages') }}">
+                                        <span class="fas fa-trash"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

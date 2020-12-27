@@ -53,6 +53,9 @@ expense:
     new:
       success_message: '¡Gasto añadido con éxito!'
       error_message: 'Hubo algún error a la hora de añadir el gasto. Por favor, prueba de nuevo.'
+  remove:
+    success_message: '¡Gasto eliminado con éxito!'
+    error_message: 'Hubo algún error a la hora de eliminar el gasto. Por favor, prueba de nuevo.'
   detail:
     tags: 'Etiquetas:'
     paid_by: 'Pagado por:'

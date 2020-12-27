@@ -16,6 +16,15 @@
 } %}
 
 {% block content %}
+    <div class="row mb-2">
+        <div class="col text-right">
+            <a href="{{ path('app_expense_remove', {'id': expense.id}) }}"
+               class="btn btn-sm btn-primary"
+               title="{{ 'button_titles.remove'|trans({}, 'messages') }}">
+                <span class="fas fa-trash"></span> {{ 'button_titles.remove'|trans({}, 'messages') }}
+            </a>
+        </div>
+    </div>
     <div class="card border-light shadow-sm mb-4">
         <div class="card-body">
             <div class="row mb-4 justify-content-center">

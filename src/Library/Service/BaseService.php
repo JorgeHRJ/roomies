@@ -74,18 +74,16 @@ abstract class BaseService
 
     /**
      * @param object $entity
-     * @return object
+     *
      * @throws \Exception
      */
-    public function remove($entity)
+    public function remove($entity): void
     {
         try {
             $this->entityManager->remove($entity);
             $this->entityManager->flush();
 
             $this->logger->info(sprintf('Removed %s ID::%s', get_class($entity), $entity->getId()));
-
-            return $entity;
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error removing %s. Error: %s', get_class($entity), $e->getMessage()));
 
