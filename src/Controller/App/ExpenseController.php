@@ -105,12 +105,38 @@ class ExpenseController extends BaseController
     {
         $home = $this->contextService->getHome();
 
-        $expense = $this->expenseService->getByIdAndHome($home, $id);
-        if (!$expense instanceof Expense) {
-            throw new NotFoundHttpException();
-        }
+        $expense = $this->getExpenseFromRequest($id);
 
         return $this->render('app/expense/detail.html.twig', ['expense' => $expense]);
+    }
+
+    /**
+     * @Route({
+     *     "es": "/eliminar/{id}",
+     *     "en": "/remove/{id}"
+     * }, requirements={"id"="\d+"}, name="remove")
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function remove(int $id): Response
+    {
+        $expense = $this->getExpenseFromRequest($id);
+        try {
+            $this->expenseService->remove($expense);
+
+            $this->addFlash(
+                'app_success',
+                $this->translator->trans('expense.remove.success_message', [], 'expense')
+            );
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'app_error',
+                $this->translator->trans('expense.remove.error_message', [], 'expense')
+            );
+        }
+
+        return $this->redirectToRoute('app_expense_index');
     }
 
     /**
@@ -172,5 +198,21 @@ class ExpenseController extends BaseController
             'form' => $form->createView(),
             'home_users' => $homeUsers
         ]);
+    }
+
+    /**
+     * @param int $id
+     * @return Expense
+     */
+    private function getExpenseFromRequest(int $id): Expense
+    {
+        $home = $this->contextService->getHome();
+
+        $expense = $this->expenseService->getByIdAndHome($home, $id);
+        if (!$expense instanceof Expense) {
+            throw new NotFoundHttpException();
+        }
+
+        return $expense;
     }
 }
