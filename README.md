@@ -4,7 +4,10 @@ App to make easier people's life at home.
 
 Stack:
 - Symfony 5.2
-- Docker infra: PHP 7.4 + mariaDB + nginx
+- PHP 7.4 + mariaDB + nginx
+- MailCatcher (for development)
+- Symfony Cache
+- Symfony Messenger + RabbitMQ
 
 ## Requirements
 

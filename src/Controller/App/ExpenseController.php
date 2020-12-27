@@ -6,6 +6,7 @@ use App\Entity\Expense;
 use App\Entity\File;
 use App\Form\ExpenseType;
 use App\Library\Controller\BaseController;
+use App\Messenger\BlurImage\BlurImageMessage;
 use App\Service\ContextService;
 use App\Service\ExpenseService;
 use App\Service\ExpenseTagService;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -46,13 +48,17 @@ class ExpenseController extends BaseController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var MessageBusInterface */
+    private $messageBus;
+
     public function __construct(
         ExpenseService $expenseService,
         ExpenseTagService $expenseTagService,
         FileService $fileService,
         UserService $userService,
         ContextService $contextService,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        MessageBusInterface $messageBus
     ) {
         $this->expenseService = $expenseService;
         $this->expenseTagService = $expenseTagService;
@@ -60,6 +66,7 @@ class ExpenseController extends BaseController
         $this->userService = $userService;
         $this->contextService = $contextService;
         $this->translator = $translator;
+        $this->messageBus = $messageBus;
     }
 
     /**
@@ -103,9 +110,10 @@ class ExpenseController extends BaseController
      */
     public function detail(int $id): Response
     {
-        $home = $this->contextService->getHome();
-
         $expense = $this->getExpenseFromRequest($id);
+
+        $imageId = $expense->getFile() instanceof File ? $expense->getFile()->getId() : '0';
+        $this->messageBus->dispatch(new BlurImageMessage($imageId));
 
         return $this->render('app/expense/detail.html.twig', ['expense' => $expense]);
     }

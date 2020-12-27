@@ -95,20 +95,24 @@ qualitify() {
 }
 
 case $1 in
-    "build")
+    "docker-build")
         docker_build $2
     ;;
 
-    "up")
+    "docker-up")
         docker_up
     ;;
 
-    "down")
+    "docker-down")
         docker_down
     ;;
 
-    "reset")
+    "docker-reset")
         docker_reset
+    ;;
+
+    "docker-update")
+        docker_update
     ;;
 
     "db")

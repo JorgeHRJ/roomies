@@ -22,4 +22,4 @@ RUN apt-get update && apt-get install -y php-fpm
 ADD etc/php/7.4/fpm/conf.d/ /etc/php/7.4/fpm/conf.d/
 ADD etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/
 
-CMD ["php-fpm7.4", "-F"]
+CMD ["bin/consumer.sh"]
