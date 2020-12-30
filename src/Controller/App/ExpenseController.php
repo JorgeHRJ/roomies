@@ -78,7 +78,7 @@ class ExpenseController extends BaseController
 
         $expenses = $this->expenseService->getAll($filter, $page, $limit, $sort, $dir);
         $debts = $this->expenseService->getDebts();
-
+        dump($expenses['data']);die();
         $paginationData = $this->getPaginationData($request, $expenses, $page, $limit);
 
         return $this->render('app/expense/index.html.twig', array_merge(

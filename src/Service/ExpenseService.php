@@ -77,7 +77,7 @@ class ExpenseService extends BaseService
 
             $expenseUser->setAmount((string) $amountPerPerson);
         }
-        //dump($expenseUsers);dump($entity->getExpenseUsers());die();
+
         // persist in db
         $entity = parent::create($entity);
 

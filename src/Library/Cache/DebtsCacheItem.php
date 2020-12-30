@@ -95,7 +95,6 @@ class DebtsCacheItem implements CallbackInterface
      */
     private function getDebtsFromExpenses(array $debts, array $expenses): array
     {
-        //dump($expenses);die();
         foreach ($expenses as $expense) {
             $paidById = $expense->getPaidBy()->getId();
             foreach ($expense->getExpenseUsers() as $expenseUser) {
@@ -112,7 +111,7 @@ class DebtsCacheItem implements CallbackInterface
                 $debts[$expenseUserId][$paidById]['amount'] -= $expenseUser->getAmount();
             }
         }
-        //dump($debts);die();
+
         return $debts;
     }
 }
