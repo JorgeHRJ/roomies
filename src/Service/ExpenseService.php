@@ -120,6 +120,8 @@ class ExpenseService extends BaseService
      */
     public function getWithExpenseUsers(): array
     {
+        $this->entityManager->clear(Expense::class);
+
         return $this->repository->findWithExpenseUsers($this->contextService->getHome());
     }
 

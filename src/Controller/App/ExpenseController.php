@@ -6,7 +6,6 @@ use App\Entity\Expense;
 use App\Entity\File;
 use App\Form\ExpenseType;
 use App\Library\Controller\BaseController;
-use App\Messenger\BlurImage\BlurImageMessage;
 use App\Service\ContextService;
 use App\Service\ExpenseService;
 use App\Service\ExpenseTagService;
@@ -27,7 +26,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ExpenseController extends BaseController
 {
-    const LIST_LIMIT = 20;
+    const LIST_LIMIT = 10;
 
     /** @var ExpenseService */
     private $expenseService;
@@ -78,7 +77,7 @@ class ExpenseController extends BaseController
 
         $expenses = $this->expenseService->getAll($filter, $page, $limit, $sort, $dir);
         $debts = $this->expenseService->getDebts();
-        dump($expenses['data']);die();
+
         $paginationData = $this->getPaginationData($request, $expenses, $page, $limit);
 
         return $this->render('app/expense/index.html.twig', array_merge(

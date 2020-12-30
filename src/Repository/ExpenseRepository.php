@@ -111,7 +111,10 @@ class ExpenseRepository extends BaseRepository
         $qb
             ->addSelect('eu')
             ->addSelect('et')
+            ->addSelect('pb')
             ->join(sprintf('%s.expenseUsers', $alias), 'eu')
-            ->leftJoin(sprintf('%s.tags', $alias), 'et');
+            ->leftJoin(sprintf('%s.tags', $alias), 'et')
+            ->join(sprintf('%s.paidBy', $alias), 'pb')
+        ;
     }
 }
