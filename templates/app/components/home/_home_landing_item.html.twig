@@ -3,7 +3,12 @@
         <div class="card-body pb-5">
             {% set avatar = get_home_avatar(home) %}
             {% if avatar is not empty %}
-                <img src="{{ asset(avatar.path) }}" class="user-avatar large-avatar mx-auto mb-1"
+                {% set placeholder = get_placeholder(avatar) %}
+                <img data-src="{{ asset(avatar.path) }}"
+                     {% if placeholder is not empty %}
+                         src="{{ placeholder }}"
+                     {% endif %}
+                     class="user-avatar large-avatar mx-auto mb-1 lazy"
                      alt="{{ home.name }}">
             {% else %}
                 <span><i class="fas fa-home fa-2x text-primary"></i></span>

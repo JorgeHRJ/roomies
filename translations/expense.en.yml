@@ -22,6 +22,7 @@ expense:
       description: 'Description'
       amount: 'Amount'
       tags: 'Tags'
+      paid_by: 'Paid by'
       created_at: 'Added at'
       actions: 'Actions'
   form:

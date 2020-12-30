@@ -5,26 +5,26 @@ namespace App\Messenger\BlurImage;
 class BlurImageMessage
 {
     /** @var int */
-    private $imageId;
+    private $fileId;
 
-    public function __construct(int $imageId)
+    public function __construct(int $fileId)
     {
-        $this->imageId = $imageId;
+        $this->fileId = $fileId;
     }
 
     /**
      * @return int
      */
-    public function getImageId(): int
+    public function getFileId(): int
     {
-        return $this->imageId;
+        return $this->fileId;
     }
 
     /**
-     * @param int $imageId
+     * @param int $fileId
      */
-    public function setImageId(int $imageId): void
+    public function setFileId(int $fileId): void
     {
-        $this->imageId = $imageId;
+        $this->fileId = $fileId;
     }
 }

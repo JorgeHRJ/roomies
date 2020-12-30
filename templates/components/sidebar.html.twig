@@ -39,7 +39,11 @@
                             <div class="card border-light text-center p-0">
                                 <div class="card-body pb-2">
                                     {% if avatar is not empty %}
+                                        {% set placeholder = get_placeholder(avatar) %}
                                         <img data-src="{{ asset(avatar.path) }}"
+                                             {% if placeholder is not empty %}
+                                                 src="{{ asset(placeholder) }}"
+                                             {% endif %}
                                              class="user-avatar large-avatar mx-auto mb-1 lazy"
                                              alt="{{ current_home.name }}">
                                     {% else %}

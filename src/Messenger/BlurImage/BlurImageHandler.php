@@ -2,24 +2,22 @@
 
 namespace App\Messenger\BlurImage;
 
-use Psr\Log\LoggerInterface;
+use App\Service\FileService;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class BlurImageHandler implements MessageHandlerInterface
 {
-    private $logger;
+    /** @var FileService */
+    private $fileService;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(FileService $fileService)
     {
-        $this->logger = $logger;
+        $this->fileService = $fileService;
     }
 
-    public function __invoke(BlurImageMessage $message)
+    public function __invoke(BlurImageMessage $message): void
     {
-        $imageId = $message->getImageId();
-        $message = sprintf('Blurring image with ID %d', $imageId);
-
-        $this->logger->info($message);
-        echo $message . PHP_EOL;
+        $file = $this->fileService->get($message->getFileId());
+        $this->fileService->createBlurredImagePlaceholder($file);
     }
 }

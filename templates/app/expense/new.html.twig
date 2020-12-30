@@ -27,7 +27,7 @@
             <div class="row mb-4 justify-content-center">
                 <div class="col-md-8">
                     {{ include('components/flash.html.twig') }}
-                    {{ form_start(form, {'attr': {'class': 'mt-4'}}) }}
+                    {{ form_start(form, {'attr': {'class': 'mt-4', 'autocomplete': 'off'}}) }}
                     <div class="form-file text-center mb-2">
                         {{ form_widget(form.file, {'attr': {
                             'class': 'form-file-input',

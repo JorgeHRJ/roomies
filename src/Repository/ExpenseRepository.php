@@ -52,8 +52,9 @@ class ExpenseRepository extends BaseRepository
             $qb->setFirstResult($offset);
             $qb->setMaxResults($limit);
         }
+        $qb->groupBy('e');
 
-        return $qb->getQuery()->execute();
+        dump($qb->getQuery()->execute());die();
     }
 
     /**
@@ -65,8 +66,8 @@ class ExpenseRepository extends BaseRepository
         $alias = 'e';
 
         $qb = $this->createQueryBuilder($alias);
+        $qb->join(sprintf('%s.expenseUsers', $alias), 'eu');
 
-        $this->setJoins($alias, $qb);
         $this->setHomeRestriction($alias, $qb, $home);
 
         return $qb->getQuery()->getResult();
@@ -110,7 +111,10 @@ class ExpenseRepository extends BaseRepository
         $qb
             ->addSelect('eu')
             ->addSelect('et')
+            ->addSelect('pb')
             ->join(sprintf('%s.expenseUsers', $alias), 'eu')
-            ->leftJoin(sprintf('%s.tags', $alias), 'et');
+            ->leftJoin(sprintf('%s.tags', $alias), 'et')
+            ->join(sprintf('%s.paidBy', $alias), 'pb')
+        ;
     }
 }

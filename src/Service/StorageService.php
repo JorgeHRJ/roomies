@@ -83,6 +83,24 @@ class StorageService
     }
 
     /**
+     * @param string $path
+     * @return bool
+     */
+    public function assetExists(string $path): bool
+    {
+        return file_exists(sprintf('%s/%s', $this->publicFolder, $path));
+    }
+
+    /**
+     * @param string $toClonePath
+     * @param string $newPath
+     */
+    public function clone(string $toClonePath, string $newPath): void
+    {
+        copy($toClonePath, $newPath);
+    }
+
+    /**
      * @return string
      */
     public function getPublicFolder(): string
