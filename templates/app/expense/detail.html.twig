@@ -110,8 +110,12 @@
                     <div class="row">
                         <h3 class="mb-2">{{ 'expense.detail.titles.attached'|trans({}, 'expense') }}</h3>
                         {% if expense.file.type == constant('App\\Entity\\File::IMAGE_TYPE') %}
+                            {% set placeholder = get_placeholder(expense.file) %}
                             <img alt="Attached file"
                                  class="img-responsive lazy"
+                                 {% if placeholder is not empty %}
+                                     src="{{ asset(placeholder) }}"
+                                 {% endif %}
                                  data-src="{{ asset(expense.file.path) }}"
                                  data-component="image-expandable">
                         {% elseif expense.file.type == constant('App\\Entity\\File::DOC_TYPE') %}

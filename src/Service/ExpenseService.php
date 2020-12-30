@@ -49,7 +49,7 @@ class ExpenseService extends BaseService
 
         // check paid by expense user exists
         $expenseUsersIds = array_map(function (ExpenseUser $expenseUser) {
-            return $expenseUser->getId();
+            return $expenseUser->getUser()->getId();
         }, $expenseUsers->toArray());
         if (!in_array($entity->getPaidBy()->getId(), $expenseUsersIds)) {
             $expenseUser = new ExpenseUser();
@@ -63,10 +63,12 @@ class ExpenseService extends BaseService
 
         // set every part to the users
         $amountPerPerson = round(($entity->getAmount() / $expenseUsers->count()), 2);
+
         /** @var ExpenseUser $expenseUser */
         foreach ($expenseUsers as $expenseUser) {
             if ($expenseUser->getUser()->getId() === $entity->getPaidBy()->getId()) {
                 $expenseUser->setStatus(ExpenseUser::PAID_STATUS);
+                $expenseUser->setPaidAt($entity->getPaidAt());
             }
 
             if ($expenseUser->getStatus() === ExpenseUser::PENDING_STATUS) {
@@ -118,6 +120,8 @@ class ExpenseService extends BaseService
      */
     public function getWithExpenseUsers(): array
     {
+        $this->entityManager->clear(Expense::class);
+
         return $this->repository->findWithExpenseUsers($this->contextService->getHome());
     }
 

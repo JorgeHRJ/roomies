@@ -20,6 +20,7 @@ services:
         links:
             - db
             - mailcatcher
+            - rabbitmq
         volumes:
             - ${APP_DIR}:/home/app:cached
         network_mode: bridge
@@ -44,3 +45,27 @@ services:
             - 1025:1025
             - 1080:1080
         network_mode: bridge
+
+    rabbitmq:
+        container_name: roomies-rabbitmq
+        image: rabbitmq:management
+        ports:
+            - "${RABBITMQ_QUEUE_PORT}:5672"
+            - "${RABBITMQ_GUI_PORT}:15672"
+        volumes:
+            - ${APP_RABBITMQ}:/var/lib/rabbitmq:cached
+        network_mode: bridge
+
+    consumer:
+        build: ./consumer
+        container_name: roomies-consumer
+        image: roomies-consumer
+        links:
+            - db
+            - mailcatcher
+            - rabbitmq
+        volumes:
+            - ${APP_DIR}:/home/app:cached
+        network_mode: bridge
+        working_dir: /home/app
+

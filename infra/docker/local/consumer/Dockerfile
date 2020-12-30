@@ -22,4 +22,10 @@ RUN apt-get update && apt-get install -y php-fpm
 ADD etc/php/7.4/fpm/conf.d/ /etc/php/7.4/fpm/conf.d/
 ADD etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/
 
-CMD ["php-fpm7.4", "-F"]
+# supervisor
+RUN apt-get update && apt-get install -y --no-install-recommends supervisor
+
+ADD etc/supervisor/supervisord.conf /etc/supervisor
+ADD etc/supervisor/conf.d/ /etc/supervisor/conf.d/
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

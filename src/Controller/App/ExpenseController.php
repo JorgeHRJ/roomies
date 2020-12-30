@@ -26,7 +26,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ExpenseController extends BaseController
 {
-    const LIST_LIMIT = 20;
+    const LIST_LIMIT = 10;
 
     /** @var ExpenseService */
     private $expenseService;
@@ -103,8 +103,6 @@ class ExpenseController extends BaseController
      */
     public function detail(int $id): Response
     {
-        $home = $this->contextService->getHome();
-
         $expense = $this->getExpenseFromRequest($id);
 
         return $this->render('app/expense/detail.html.twig', ['expense' => $expense]);

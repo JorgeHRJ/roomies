@@ -8,8 +8,6 @@
 {% for flash_message in app.session.flashbag.get('app_success') %}
     <div class="alert alert-success alert-dismissible bg-success text-white border-0" role="alert">
         <h6>{{ flash_message|raw }}</h6>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 {% endfor %}

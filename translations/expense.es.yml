@@ -22,6 +22,7 @@ expense:
       description: 'Descripción'
       amount: 'Cantidad'
       tags: 'Etiquetas'
+      paid_by: 'Pagado por'
       created_at: 'Añadido en'
       actions: 'Acciones'
   form:
