@@ -160,7 +160,7 @@ class FileService
         try {
             $filename = explode('.', $uploadedFile->getClientOriginalName());
             $name = (string) preg_replace('/[^\w\-\.]/', '', $filename[0]);
-            $name = sprintf('%s_%s', $name, md5(time()));
+            $name = sprintf('%s_%s', $name, md5((string) time()));
             $filename = sprintf('%s.%s', $name, $uploadedFile->getClientOriginalExtension());
 
             $newFile = $this->create($name, $uploadedFile->getClientOriginalExtension(), $origin, $entityName);
